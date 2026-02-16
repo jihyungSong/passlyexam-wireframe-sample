@@ -138,12 +138,24 @@
             transition: all 0.2s;
             text-decoration: none;
             display: block;
+            position: relative;
         }
         
         .mode-card:hover {
             border-color: #2563eb;
             box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
             transform: translateY(-2px);
+        }
+        
+        .mode-card.locked {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .mode-card.locked:hover {
+            border-color: transparent;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transform: none;
         }
         
         .mode-card-header {
@@ -180,11 +192,30 @@
             font-size: 22px;
             color: #111827;
             margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .mode-title p {
             color: #6b7280;
             font-size: 15px;
+        }
+        
+        .pro-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #7c2d12;
+        }
+        
+        .pro-badge.hidden {
+            display: none;
         }
         
         .mode-features {
@@ -237,6 +268,15 @@
             background: #1d4ed8;
         }
         
+        .btn-start.locked {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .btn-start.locked:hover {
+            background: #9ca3af;
+        }
+        
         .mode-tag {
             padding: 6px 12px;
             border-radius: 6px;
@@ -252,6 +292,57 @@
         .mode-tag.realistic {
             background: #dcfce7;
             color: #16a34a;
+        }
+        
+        .mode-tag.pro-only {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+        
+        /* Lock Overlay */
+        .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.8);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .lock-overlay.hidden {
+            display: none;
+        }
+        
+        .lock-icon {
+            font-size: 48px;
+        }
+        
+        .lock-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .btn-unlock {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #7c2d12;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-unlock:hover {
+            transform: scale(1.02);
         }
         
         /* Divider */
@@ -296,6 +387,7 @@
         
         .stat-item {
             text-align: center;
+            position: relative;
         }
         
         .stat-value {
@@ -306,11 +398,31 @@
         
         .stat-value.green { color: #22c55e; }
         .stat-value.yellow { color: #eab308; }
+        .stat-value.locked {
+            color: #d1d5db;
+            filter: blur(4px);
+        }
         
         .stat-label {
             font-size: 12px;
             color: #9ca3af;
             margin-top: 4px;
+        }
+        
+        .stat-pro-badge {
+            position: absolute;
+            top: -8px;
+            right: 0;
+            padding: 2px 6px;
+            background: #fef3c7;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #b45309;
+        }
+        
+        .stat-pro-badge.hidden {
+            display: none;
         }
         
         /* Responsive */
@@ -358,6 +470,168 @@
             color: #fbbf24;
             font-weight: 600;
         }
+        
+        /* Plan Toggle */
+        .plan-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px;
+            background: #374151;
+            border-radius: 8px;
+            margin-left: auto;
+        }
+        
+        .plan-toggle-btn {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .plan-toggle-btn.free {
+            background: transparent;
+            color: #9ca3af;
+        }
+        
+        .plan-toggle-btn.free.active {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .plan-toggle-btn.pro {
+            background: transparent;
+            color: #9ca3af;
+        }
+        
+        .plan-toggle-btn.pro.active {
+            background: #fbbf24;
+            color: #7c2d12;
+        }
+        
+        /* Upgrade Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+        
+        .modal-overlay.visible .modal {
+            transform: scale(1);
+        }
+        
+        .modal-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .modal h2 {
+            font-size: 24px;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+        
+        .modal p {
+            color: #6b7280;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        
+        .modal-features {
+            text-align: left;
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .modal-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+        }
+        
+        .modal-feature span:first-child {
+            color: #22c55e;
+        }
+        
+        .modal-price {
+            font-size: 36px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .modal-price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: #6b7280;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .modal-btn.primary {
+            background: #2563eb;
+            color: white;
+            border: none;
+        }
+        
+        .modal-btn.primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .modal-btn.secondary {
+            background: white;
+            color: #6b7280;
+            border: 1px solid #d1d5db;
+        }
+        
+        .modal-btn.secondary:hover {
+            background: #f3f4f6;
+        }
     </style>
 </head>
 <body>
@@ -371,6 +645,11 @@
             <a href="study-mode.html" class="active">Study Mode</a>
             <a href="quiz.html">Quiz</a>
             <a href="result.html">Result</a>
+            
+            <div class="plan-toggle">
+                <button class="plan-toggle-btn free active" onclick="setPlan('free')">Free</button>
+                <button class="plan-toggle-btn pro" onclick="setPlan('pro')">Pro</button>
+            </div>
         </div>
     </nav>
     
@@ -402,7 +681,7 @@
         <!-- Mode Cards -->
         <div class="mode-cards">
             <!-- Practice Mode -->
-            <a href="quiz.html?mode=practice" class="mode-card">
+            <a href="quiz.html?mode=practice" class="mode-card" id="practiceCard">
                 <div class="mode-card-header">
                     <div class="mode-icon practice">🎯</div>
                     <div class="mode-title">
@@ -426,7 +705,7 @@
                     </div>
                     <div class="mode-feature">
                         <span class="mode-feature-icon">📊</span>
-                        <span class="mode-feature-text">Detailed explanations</span>
+                        <span class="mode-feature-text" id="practiceExplanation">Detailed explanations</span>
                     </div>
                 </div>
                 
@@ -439,11 +718,14 @@
             <div class="divider">or</div>
             
             <!-- Mock Exam Mode -->
-            <a href="quiz.html?mode=mock" class="mode-card">
+            <div class="mode-card" id="mockCard" onclick="handleMockExam()">
                 <div class="mode-card-header">
                     <div class="mode-icon mock">📝</div>
                     <div class="mode-title">
-                        <h2>Mock Exam</h2>
+                        <h2>
+                            Mock Exam
+                            <span class="pro-badge" id="mockProBadge">⭐ PRO</span>
+                        </h2>
                         <p>Simulate the real exam environment</p>
                     </div>
                 </div>
@@ -468,10 +750,17 @@
                 </div>
                 
                 <div class="mode-cta">
-                    <span class="mode-tag realistic">🎯 Realistic</span>
-                    <span class="btn-start">Start Mock Exam →</span>
+                    <span class="mode-tag pro-only" id="mockTag">🔒 Pro Only</span>
+                    <span class="btn-start" id="mockBtn">Upgrade to Unlock →</span>
                 </div>
-            </a>
+                
+                <!-- Lock Overlay for Free users -->
+                <div class="lock-overlay" id="mockLockOverlay">
+                    <div class="lock-icon">🔒</div>
+                    <div class="lock-text">Mock Exam is Pro only</div>
+                    <button class="btn-unlock" onclick="event.stopPropagation(); showUpgradeModal();">Upgrade to Pro - $3/mo</button>
+                </div>
+            </div>
         </div>
         
         <!-- Current Stats -->
@@ -487,15 +776,138 @@
                     <div class="stat-label">Accuracy</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value green">78%</div>
+                    <span class="stat-pro-badge" id="passPredictionBadge">PRO</span>
+                    <div class="stat-value green" id="passPredictionValue">78%</div>
                     <div class="stat-label">Pass Prediction</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">3</div>
+                    <span class="stat-pro-badge" id="mockCountBadge">PRO</span>
+                    <div class="stat-value" id="mockCountValue">3</div>
                     <div class="stat-label">Mock Exams Taken</div>
                 </div>
             </div>
         </div>
     </main>
+    
+    <!-- Upgrade Modal -->
+    <div class="modal-overlay" id="upgradeModal" onclick="hideUpgradeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-icon">📝</div>
+            <h2>Unlock Mock Exams</h2>
+            <p>Take realistic mock exams and know exactly when you're ready to pass!</p>
+            
+            <div class="modal-features">
+                <div class="modal-feature">
+                    <span>✓</span>
+                    <span>65 questions, 130 minutes (real exam format)</span>
+                </div>
+                <div class="modal-feature">
+                    <span>✓</span>
+                    <span>Detailed score report & domain analysis</span>
+                </div>
+                <div class="modal-feature">
+                    <span>✓</span>
+                    <span>AI pass prediction</span>
+                </div>
+                <div class="modal-feature">
+                    <span>✓</span>
+                    <span>Unlimited mock exams</span>
+                </div>
+            </div>
+            
+            <div class="modal-price">$3 <span>/ month</span></div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" onclick="hideUpgradeModal()">Maybe Later</button>
+                <button class="modal-btn primary" onclick="alert('Payment integration coming soon!')">Upgrade Now</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentPlan = 'free';
+        
+        function setPlan(plan) {
+            currentPlan = plan;
+            
+            // Update toggle buttons
+            document.querySelectorAll('.plan-toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.plan-toggle-btn.${plan}`).classList.add('active');
+            
+            // Mock Exam card
+            const mockCard = document.getElementById('mockCard');
+            const mockProBadge = document.getElementById('mockProBadge');
+            const mockLockOverlay = document.getElementById('mockLockOverlay');
+            const mockTag = document.getElementById('mockTag');
+            const mockBtn = document.getElementById('mockBtn');
+            
+            if (plan === 'pro') {
+                mockCard.classList.remove('locked');
+                mockProBadge.classList.add('hidden');
+                mockLockOverlay.classList.add('hidden');
+                mockTag.textContent = '🎯 Realistic';
+                mockTag.className = 'mode-tag realistic';
+                mockBtn.textContent = 'Start Mock Exam →';
+                mockBtn.classList.remove('locked');
+            } else {
+                mockCard.classList.add('locked');
+                mockProBadge.classList.remove('hidden');
+                mockLockOverlay.classList.remove('hidden');
+                mockTag.textContent = '🔒 Pro Only';
+                mockTag.className = 'mode-tag pro-only';
+                mockBtn.textContent = 'Upgrade to Unlock →';
+                mockBtn.classList.add('locked');
+            }
+            
+            // Stats Pro badges
+            const passPredictionBadge = document.getElementById('passPredictionBadge');
+            const mockCountBadge = document.getElementById('mockCountBadge');
+            const passPredictionValue = document.getElementById('passPredictionValue');
+            const mockCountValue = document.getElementById('mockCountValue');
+            
+            if (plan === 'pro') {
+                passPredictionBadge.classList.add('hidden');
+                mockCountBadge.classList.add('hidden');
+                passPredictionValue.classList.remove('locked');
+                mockCountValue.classList.remove('locked');
+            } else {
+                passPredictionBadge.classList.remove('hidden');
+                mockCountBadge.classList.remove('hidden');
+                passPredictionValue.classList.add('locked');
+                mockCountValue.classList.add('locked');
+            }
+            
+            // Practice mode explanation (basic vs detailed)
+            const practiceExplanation = document.getElementById('practiceExplanation');
+            if (plan === 'pro') {
+                practiceExplanation.textContent = 'Detailed explanations + AI recommendations';
+            } else {
+                practiceExplanation.textContent = 'Basic explanations';
+            }
+        }
+        
+        function handleMockExam() {
+            if (currentPlan === 'pro') {
+                window.location.href = 'quiz.html?mode=mock';
+            } else {
+                showUpgradeModal();
+            }
+        }
+        
+        function showUpgradeModal() {
+            document.getElementById('upgradeModal').classList.add('visible');
+        }
+        
+        function hideUpgradeModal(event) {
+            if (!event || event.target === event.currentTarget) {
+                document.getElementById('upgradeModal').classList.remove('visible');
+            }
+        }
+        
+        // Initialize
+        setPlan('free');
+    </script>
 </body>
 </html>

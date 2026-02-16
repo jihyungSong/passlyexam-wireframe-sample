@@ -70,6 +70,22 @@
             color: #2563eb;
         }
         
+        .daily-limit-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: #fef3c7;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #b45309;
+        }
+        
+        .daily-limit-indicator.hidden {
+            display: none;
+        }
+        
         .quiz-progress {
             display: flex;
             align-items: center;
@@ -92,6 +108,10 @@
             font-size: 16px;
             font-weight: 600;
             color: #b45309;
+        }
+        
+        .timer.hidden {
+            display: none;
         }
         
         .btn-quit {
@@ -283,6 +303,11 @@
             border-left: 4px solid #22c55e;
         }
         
+        .explanation.basic {
+            background: #f9fafb;
+            border-left-color: #d1d5db;
+        }
+        
         .explanation-title {
             display: flex;
             align-items: center;
@@ -293,10 +318,44 @@
             margin-bottom: 12px;
         }
         
+        .explanation.basic .explanation-title {
+            color: #6b7280;
+        }
+        
         .explanation-text {
             font-size: 14px;
             line-height: 1.7;
             color: #374151;
+        }
+        
+        .upgrade-hint {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #fef3c7;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .upgrade-hint.hidden {
+            display: none;
+        }
+        
+        .upgrade-hint-text {
+            font-size: 13px;
+            color: #92400e;
+        }
+        
+        .btn-upgrade-small {
+            padding: 6px 12px;
+            background: #f59e0b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
         }
         
         /* Navigation */
@@ -387,6 +446,81 @@
             color: #b45309;
         }
         
+        /* Daily Limit Modal */
+        .limit-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .limit-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .limit-modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 48px 40px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .limit-modal-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .limit-modal-content h2 {
+            font-size: 24px;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+        
+        .limit-modal-content p {
+            font-size: 15px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .limit-modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .btn-modal {
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .btn-modal.primary {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #7c2d12;
+        }
+        
+        .btn-modal.secondary {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+        
         /* Responsive */
         @media (max-width: 640px) {
             .quiz-header-content {
@@ -449,6 +583,47 @@
             color: #fbbf24;
             font-weight: 600;
         }
+        
+        /* Plan Toggle */
+        .plan-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px;
+            background: #374151;
+            border-radius: 8px;
+            margin-left: auto;
+        }
+        
+        .plan-toggle-btn {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .plan-toggle-btn.free {
+            background: transparent;
+            color: #9ca3af;
+        }
+        
+        .plan-toggle-btn.free.active {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .plan-toggle-btn.pro {
+            background: transparent;
+            color: #9ca3af;
+        }
+        
+        .plan-toggle-btn.pro.active {
+            background: #fbbf24;
+            color: #7c2d12;
+        }
     </style>
 </head>
 <body>
@@ -462,6 +637,11 @@
             <a href="study-mode.html">Study Mode</a>
             <a href="quiz.html" class="active">Quiz</a>
             <a href="result.html">Result</a>
+            
+            <div class="plan-toggle">
+                <button class="plan-toggle-btn free active" onclick="setPlan('free')">Free</button>
+                <button class="plan-toggle-btn pro" onclick="setPlan('pro')">Pro</button>
+            </div>
         </div>
     </nav>
     
@@ -474,11 +654,14 @@
                     <span>SAA-C03</span>
                 </div>
                 <div class="quiz-mode">Practice Mode</div>
+                <div class="daily-limit-indicator" id="dailyLimitIndicator">
+                    ⚡ 7/10 today
+                </div>
             </div>
             <div class="quiz-progress">
-                <span class="progress-text">Question <strong>12</strong> of <strong>65</strong></span>
-                <div class="timer">⏱️ 1:45:30</div>
-                <button class="btn-quit">Exit</button>
+                <span class="progress-text">Question <strong>8</strong> of <strong id="totalQuestions">10</strong></span>
+                <div class="timer" id="timer">⏱️ 1:45:30</div>
+                <button class="btn-quit" onclick="location.href='dashboard.html'">Exit</button>
             </div>
         </div>
     </header>
@@ -487,7 +670,7 @@
     <div class="progress-bar-container">
         <div class="progress-bar-inner">
             <div class="progress-bar">
-                <div class="progress-fill" style="width: 18%"></div>
+                <div class="progress-fill" id="progressFill" style="width: 80%"></div>
             </div>
         </div>
     </div>
@@ -496,7 +679,7 @@
     <main class="main">
         <div class="question-card">
             <div class="question-header">
-                <div class="question-number">Question <strong>12</strong></div>
+                <div class="question-number">Question <strong>8</strong></div>
                 <div class="question-tags">
                     <span class="question-tag">Storage</span>
                     <span class="question-tag">S3</span>
@@ -529,10 +712,26 @@
                     </div>
                 </div>
                 
-                <!-- Explanation (shown after answer) -->
-                <div class="explanation">
+                <!-- Explanation (shown after answer) - Basic for Free -->
+                <div class="explanation basic" id="explanationBasic">
                     <div class="explanation-title">
                         💡 Explanation
+                    </div>
+                    <p class="explanation-text">
+                        <strong>Correct answer: C. S3 Glacier Deep Archive</strong>
+                        <br><br>
+                        This is the most cost-effective option for archival data accessed once or twice a year with 12-hour retrieval time.
+                    </p>
+                    <div class="upgrade-hint" id="upgradeHint">
+                        <span class="upgrade-hint-text">🔒 Upgrade to Pro for detailed explanations & AI recommendations</span>
+                        <button class="btn-upgrade-small" onclick="showLimitModal()">Upgrade</button>
+                    </div>
+                </div>
+                
+                <!-- Explanation - Detailed for Pro -->
+                <div class="explanation" id="explanationPro" style="display: none;">
+                    <div class="explanation-title">
+                        💡 Detailed Explanation
                     </div>
                     <p class="explanation-text">
                         <strong>S3 Glacier Deep Archive</strong> is the correct answer because:
@@ -542,6 +741,8 @@
                         <br>• Perfect for archival data accessed once or twice per year
                         <br><br>
                         <strong>Why not B (Glacier Instant Retrieval)?</strong> While it provides millisecond retrieval, it costs more than Deep Archive. Since 12-hour retrieval is acceptable, Deep Archive is more cost-effective.
+                        <br><br>
+                        <strong>🤖 AI Recommendation:</strong> You've missed 3 similar S3 storage class questions. Focus on understanding the retrieval times and costs of each storage class.
                     </p>
                 </div>
             </div>
@@ -549,9 +750,96 @@
             <div class="quiz-nav">
                 <button class="btn-nav">← Previous</button>
                 <button class="btn-flag">🚩 Flag for Review</button>
-                <button class="btn-submit btn-next">Next Question →</button>
+                <button class="btn-submit btn-next" onclick="handleNextQuestion()">Next Question →</button>
             </div>
         </div>
     </main>
+    
+    <!-- Daily Limit Modal -->
+    <div class="limit-modal" id="limitModal">
+        <div class="limit-modal-content">
+            <div class="limit-modal-icon">⏰</div>
+            <h2>Daily Limit Reached!</h2>
+            <p>You've used all 10 free questions for today. Upgrade to Pro for unlimited practice!</p>
+            
+            <div class="limit-modal-buttons">
+                <button class="btn-modal primary" onclick="alert('Payment coming soon!')">
+                    Upgrade to Pro - $3/mo
+                </button>
+                <button class="btn-modal secondary" onclick="location.href='dashboard.html'">
+                    Come Back Tomorrow
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentPlan = 'free';
+        let currentQuestion = 8;
+        let totalQuestions = 10;
+        
+        function setPlan(plan) {
+            currentPlan = plan;
+            
+            // Update toggle buttons
+            document.querySelectorAll('.plan-toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.plan-toggle-btn.${plan}`).classList.add('active');
+            
+            // Daily limit indicator
+            const dailyLimit = document.getElementById('dailyLimitIndicator');
+            dailyLimit.classList.toggle('hidden', plan === 'pro');
+            
+            // Timer (show for mock exam which is Pro only, here we hide it for practice)
+            document.getElementById('timer').classList.add('hidden');
+            
+            // Total questions
+            if (plan === 'free') {
+                totalQuestions = 10;
+                document.getElementById('totalQuestions').textContent = '10';
+                document.getElementById('progressFill').style.width = '80%';
+            } else {
+                totalQuestions = 65;
+                document.getElementById('totalQuestions').textContent = '∞';
+                document.getElementById('progressFill').style.width = '12%';
+            }
+            
+            // Explanation type
+            const explanationBasic = document.getElementById('explanationBasic');
+            const explanationPro = document.getElementById('explanationPro');
+            const upgradeHint = document.getElementById('upgradeHint');
+            
+            if (plan === 'pro') {
+                explanationBasic.style.display = 'none';
+                explanationPro.style.display = 'block';
+            } else {
+                explanationBasic.style.display = 'block';
+                explanationPro.style.display = 'none';
+            }
+        }
+        
+        function handleNextQuestion() {
+            if (currentPlan === 'free') {
+                currentQuestion++;
+                if (currentQuestion > totalQuestions) {
+                    showLimitModal();
+                } else {
+                    // Just simulate going to next question
+                    alert('Moving to question ' + currentQuestion);
+                }
+            } else {
+                // Pro users can continue
+                window.location.href = 'result.html';
+            }
+        }
+        
+        function showLimitModal() {
+            document.getElementById('limitModal').classList.add('visible');
+        }
+        
+        // Initialize
+        setPlan('free');
+    </script>
 </body>
 </html>

@@ -222,7 +222,7 @@
             color: #9ca3af;
         }
         
-        /* Pass Prediction */
+        /* Pass Prediction (Pro only) */
         .pass-prediction {
             display: flex;
             align-items: center;
@@ -231,6 +231,12 @@
             background: #f0fdf4;
             border-radius: 12px;
             border: 1px solid #bbf7d0;
+            position: relative;
+        }
+        
+        .pass-prediction.locked {
+            background: #f9fafb;
+            border-color: #e5e7eb;
         }
         
         .pass-prediction.warning {
@@ -260,6 +266,7 @@
         
         .prediction-text.warning strong { color: #ca8a04; }
         .prediction-text.fail strong { color: #dc2626; }
+        .prediction-text.locked strong { color: #9ca3af; }
         
         .prediction-score {
             font-size: 32px;
@@ -270,6 +277,32 @@
         .pass-prediction.warning .prediction-score { color: #ca8a04; }
         .pass-prediction.fail .prediction-score { color: #dc2626; }
         
+        .prediction-score.locked {
+            filter: blur(8px);
+            color: #9ca3af;
+        }
+        
+        .pro-lock-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #7c2d12;
+        }
+        
+        .pro-lock-badge.hidden {
+            display: none;
+        }
+        
         /* Domain Analysis */
         .domain-analysis {
             background: white;
@@ -277,6 +310,7 @@
             padding: 32px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             margin-bottom: 24px;
+            position: relative;
         }
         
         .section-title {
@@ -287,6 +321,19 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+        
+        .pro-badge {
+            padding: 4px 8px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #7c2d12;
+        }
+        
+        .pro-badge.hidden {
+            display: none;
         }
         
         .domain-list {
@@ -347,6 +394,52 @@
             color: #dc2626;
         }
         
+        /* Locked overlay */
+        .locked-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+        
+        .locked-overlay.hidden {
+            display: none;
+        }
+        
+        .locked-icon {
+            font-size: 48px;
+        }
+        
+        .locked-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .locked-subtext {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .btn-unlock {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #7c2d12;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
         /* AI Recommendation */
         .ai-recommendation {
             background: white;
@@ -354,6 +447,7 @@
             padding: 32px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             margin-bottom: 24px;
+            position: relative;
         }
         
         .ai-content {
@@ -505,6 +599,47 @@
             color: #fbbf24;
             font-weight: 600;
         }
+        
+        /* Plan Toggle */
+        .plan-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px;
+            background: #374151;
+            border-radius: 8px;
+            margin-left: auto;
+        }
+        
+        .plan-toggle-btn {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .plan-toggle-btn.free {
+            background: transparent;
+            color: #9ca3af;
+        }
+        
+        .plan-toggle-btn.free.active {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .plan-toggle-btn.pro {
+            background: transparent;
+            color: #9ca3af;
+        }
+        
+        .plan-toggle-btn.pro.active {
+            background: #fbbf24;
+            color: #7c2d12;
+        }
     </style>
 </head>
 <body>
@@ -518,6 +653,11 @@
             <a href="study-mode.html">Study Mode</a>
             <a href="quiz.html">Quiz</a>
             <a href="result.html" class="active">Result</a>
+            
+            <div class="plan-toggle">
+                <button class="plan-toggle-btn free active" onclick="setPlan('free')">Free</button>
+                <button class="plan-toggle-btn pro" onclick="setPlan('pro')">Pro</button>
+            </div>
         </div>
     </nav>
     
@@ -537,11 +677,11 @@
         <div class="result-header">
             <div class="exam-badge">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
-                <span>AWS SAA-C03 Mock Exam</span>
+                <span>AWS SAA-C03 Practice</span>
             </div>
             <div class="result-icon">🎉</div>
-            <h1>Great Progress!</h1>
-            <p>You're on the right track. Keep practicing to improve your score.</p>
+            <h1>Practice Complete!</h1>
+            <p>Here's how you did on today's practice session</p>
         </div>
         
         <!-- Score Card -->
@@ -558,39 +698,46 @@
                     <div class="score-detail-item">
                         <div class="detail-icon correct">✓</div>
                         <div class="detail-info">
-                            <div class="value">47</div>
+                            <div class="value">7</div>
                             <div class="label">Correct Answers</div>
                         </div>
                     </div>
                     <div class="score-detail-item">
                         <div class="detail-icon incorrect">✕</div>
                         <div class="detail-info">
-                            <div class="value">15</div>
+                            <div class="value">2</div>
                             <div class="label">Incorrect Answers</div>
                         </div>
                     </div>
                     <div class="score-detail-item">
                         <div class="detail-icon skipped">–</div>
                         <div class="detail-info">
-                            <div class="value">3</div>
+                            <div class="value">1</div>
                             <div class="label">Skipped</div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="pass-prediction warning">
-                <div class="prediction-text warning">
+            <!-- Pass Prediction (Pro only) -->
+            <div class="pass-prediction warning" id="passPrediction">
+                <div class="prediction-text warning" id="predictionText">
                     <span>⚠️</span>
                     <strong>Borderline - More Practice Recommended</strong>
                 </div>
-                <div class="prediction-score">78%</div>
+                <div class="prediction-score" id="predictionScore">78%</div>
+                <div class="pro-lock-badge" id="predictionLockBadge">
+                    🔒 Pro Feature
+                </div>
             </div>
         </div>
         
-        <!-- Domain Analysis -->
-        <div class="domain-analysis">
-            <h2 class="section-title">📊 Domain Analysis</h2>
+        <!-- Domain Analysis (Pro only) -->
+        <div class="domain-analysis" id="domainAnalysis">
+            <h2 class="section-title">
+                📊 Domain Analysis 
+                <span class="pro-badge" id="domainProBadge">PRO</span>
+            </h2>
             
             <div class="domain-list">
                 <div class="domain-item">
@@ -626,11 +773,22 @@
                     <span class="domain-badge weak">⚠️ Weak</span>
                 </div>
             </div>
+            
+            <!-- Locked overlay for Free users -->
+            <div class="locked-overlay" id="domainLockedOverlay">
+                <div class="locked-icon">🔒</div>
+                <div class="locked-text">Domain Analysis is Pro only</div>
+                <div class="locked-subtext">See exactly where you need to improve</div>
+                <button class="btn-unlock" onclick="alert('Payment coming soon!')">Upgrade to Pro - $3/mo</button>
+            </div>
         </div>
         
-        <!-- AI Recommendation -->
-        <div class="ai-recommendation">
-            <h2 class="section-title">🤖 AI Recommendations</h2>
+        <!-- AI Recommendation (Pro only) -->
+        <div class="ai-recommendation" id="aiRecommendation">
+            <h2 class="section-title">
+                🤖 AI Recommendations
+                <span class="pro-badge" id="aiProBadge">PRO</span>
+            </h2>
             
             <div class="ai-content">
                 <div class="ai-icon">💡</div>
@@ -649,20 +807,84 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Locked overlay for Free users -->
+            <div class="locked-overlay" id="aiLockedOverlay">
+                <div class="locked-icon">🤖</div>
+                <div class="locked-text">AI Recommendations is Pro only</div>
+                <div class="locked-subtext">Get personalized study guidance</div>
+                <button class="btn-unlock" onclick="alert('Payment coming soon!')">Upgrade to Pro - $3/mo</button>
+            </div>
         </div>
         
         <!-- Action Buttons -->
         <div class="action-buttons">
             <a href="quiz.html" class="btn btn-primary">
-                🔄 Review Incorrect Answers
+                🔄 Review Answers
             </a>
             <a href="study-mode.html" class="btn btn-secondary">
-                📚 Practice Weak Areas
+                📚 Continue Practice
             </a>
             <a href="dashboard.html" class="btn btn-secondary">
                 🏠 Back to Dashboard
             </a>
         </div>
     </main>
+    
+    <script>
+        let currentPlan = 'free';
+        
+        function setPlan(plan) {
+            currentPlan = plan;
+            
+            // Update toggle buttons
+            document.querySelectorAll('.plan-toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.plan-toggle-btn.${plan}`).classList.add('active');
+            
+            // Pass Prediction
+            const passPrediction = document.getElementById('passPrediction');
+            const predictionScore = document.getElementById('predictionScore');
+            const predictionLockBadge = document.getElementById('predictionLockBadge');
+            
+            if (plan === 'pro') {
+                passPrediction.classList.remove('locked');
+                predictionScore.classList.remove('locked');
+                predictionLockBadge.classList.add('hidden');
+            } else {
+                passPrediction.classList.add('locked');
+                predictionScore.classList.add('locked');
+                predictionLockBadge.classList.remove('hidden');
+            }
+            
+            // Domain Analysis
+            const domainProBadge = document.getElementById('domainProBadge');
+            const domainLockedOverlay = document.getElementById('domainLockedOverlay');
+            
+            if (plan === 'pro') {
+                domainProBadge.classList.add('hidden');
+                domainLockedOverlay.classList.add('hidden');
+            } else {
+                domainProBadge.classList.remove('hidden');
+                domainLockedOverlay.classList.remove('hidden');
+            }
+            
+            // AI Recommendations
+            const aiProBadge = document.getElementById('aiProBadge');
+            const aiLockedOverlay = document.getElementById('aiLockedOverlay');
+            
+            if (plan === 'pro') {
+                aiProBadge.classList.add('hidden');
+                aiLockedOverlay.classList.add('hidden');
+            } else {
+                aiProBadge.classList.remove('hidden');
+                aiLockedOverlay.classList.remove('hidden');
+            }
+        }
+        
+        // Initialize
+        setPlan('free');
+    </script>
 </body>
 </html>
