@@ -268,6 +268,11 @@
             gap: 8px;
         }
         
+        .section-subtitle {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+        
         /* My Learning Section */
         .my-learning {
             margin-bottom: 40px;
@@ -289,11 +294,118 @@
             gap: 20px;
             transition: all 0.2s;
             border: 1px solid #e5e7eb;
+            position: relative;
         }
         
         .learning-card:hover {
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             transform: translateY(-2px);
+        }
+        
+        .learning-card.inactive {
+            opacity: 0.7;
+        }
+        
+        .learning-card.inactive:hover {
+            opacity: 1;
+        }
+        
+        /* Ready banner on card */
+        .ready-banner {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .ready-banner.hidden {
+            display: none;
+        }
+        
+        /* Inactive banner */
+        .inactive-banner {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: #f3f4f6;
+            color: #6b7280;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .inactive-banner.hidden {
+            display: none;
+        }
+        
+        /* Card menu */
+        .card-menu {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+        }
+        
+        .card-menu-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #9ca3af;
+            font-size: 18px;
+        }
+        
+        .card-menu-btn:hover {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+        
+        .card-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 160px;
+            z-index: 50;
+            display: none;
+        }
+        
+        .card-dropdown.show {
+            display: block;
+        }
+        
+        .card-dropdown-item {
+            padding: 10px 16px;
+            font-size: 14px;
+            color: #374151;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-dropdown-item:hover {
+            background: #f3f4f6;
+        }
+        
+        .card-dropdown-item.danger {
+            color: #ef4444;
+        }
+        
+        .card-dropdown-item.success {
+            color: #22c55e;
         }
         
         .learning-icon {
@@ -362,7 +474,7 @@
         
         .progress-fill.green { background: linear-gradient(90deg, #22c55e, #16a34a); }
         .progress-fill.yellow { background: linear-gradient(90deg, #eab308, #ca8a04); }
-        .progress-fill.red { background: linear-gradient(90deg, #ef4444, #dc2626); }
+        .progress-fill.blue { background: linear-gradient(90deg, #3b82f6, #2563eb); }
         
         .progress-text {
             font-size: 13px;
@@ -432,6 +544,23 @@
             background: #1d4ed8;
         }
         
+        .btn-continue.success {
+            background: #22c55e;
+        }
+        
+        .btn-continue.success:hover {
+            background: #16a34a;
+        }
+        
+        .btn-continue.secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .btn-continue.secondary:hover {
+            background: #e5e7eb;
+        }
+        
         .btn-new-exam {
             display: flex;
             align-items: center;
@@ -464,6 +593,85 @@
         .btn-new-exam.disabled:hover {
             background: white;
             color: #6b7280;
+        }
+        
+        /* Completed Section */
+        .completed-section {
+            margin-bottom: 40px;
+        }
+        
+        .completed-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 12px;
+        }
+        
+        .completed-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .completed-icon.aws {
+            background: #fff3e0;
+        }
+        
+        .completed-icon img {
+            height: 24px;
+            width: auto;
+        }
+        
+        .completed-info {
+            flex: 1;
+        }
+        
+        .completed-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .completed-meta {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        .completed-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: #dcfce7;
+            border-radius: 20px;
+            color: #16a34a;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .toggle-completed {
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .toggle-completed:hover {
+            color: #2563eb;
         }
         
         /* Browse Exams Section */
@@ -611,6 +819,7 @@
             .learning-card {
                 flex-direction: column;
                 align-items: flex-start;
+                padding-top: 32px;
             }
             
             .learning-stats {
@@ -834,6 +1043,25 @@
         .modal-btn.secondary:hover {
             background: #f3f4f6;
         }
+        
+        /* Confirm Modal */
+        .confirm-modal {
+            max-width: 400px;
+        }
+        
+        .confirm-modal .modal-buttons {
+            margin-top: 24px;
+        }
+        
+        .modal-btn.danger {
+            background: #ef4444;
+            color: white;
+            border: none;
+        }
+        
+        .modal-btn.danger:hover {
+            background: #dc2626;
+        }
     </style>
 </head>
 <body>
@@ -908,15 +1136,30 @@
             <p>Continue your certification journey</p>
         </div>
         
-        <!-- My Learning Section -->
+        <!-- My Learning Section (in_progress) -->
         <section class="my-learning">
             <div class="section-title">
                 <h2>📚 My Learning</h2>
+                <span class="section-subtitle">in_progress</span>
             </div>
             
             <div class="learning-cards">
-                <!-- AWS SAA Card -->
-                <div class="learning-card">
+                <!-- AWS SAA Card - Ready to take exam (85%+) -->
+                <div class="learning-card" id="awsCard">
+                    <div class="ready-banner" id="readyBanner">
+                        🎉 Ready to take the exam!
+                    </div>
+                    <div class="card-menu">
+                        <button class="card-menu-btn" onclick="toggleDropdown('awsDropdown')">⋮</button>
+                        <div class="card-dropdown" id="awsDropdown">
+                            <div class="card-dropdown-item success" onclick="markCompleted('aws')">
+                                ✓ Mark as Passed
+                            </div>
+                            <div class="card-dropdown-item danger" onclick="showArchiveModal('aws')">
+                                🗑️ Remove
+                            </div>
+                        </div>
+                    </div>
                     <div class="learning-icon aws">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
                     </div>
@@ -925,23 +1168,110 @@
                         <div class="learning-subtitle">SAA-C03 • Last studied 2 hours ago</div>
                         <div class="learning-progress">
                             <div class="progress-bar">
-                                <div class="progress-fill green" style="width: 65%"></div>
+                                <div class="progress-fill green" style="width: 85%"></div>
                             </div>
-                            <span class="progress-text">127 / 342 questions</span>
+                            <span class="progress-text">290 / 342 questions</span>
                         </div>
                     </div>
                     <div class="learning-stats">
                         <div class="stat-item">
-                            <span class="stat-value green">78%</span>
+                            <span class="stat-value green">87%</span>
                             <span class="stat-label">Pass Prediction</span>
                             <span class="pro-only-badge" id="statProBadge1">PRO</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-value" style="color: #111827;">73%</span>
+                            <span class="stat-value" style="color: #111827;">82%</span>
+                            <span class="stat-label">Accuracy</span>
+                        </div>
+                    </div>
+                    <a href="study-mode.html" class="btn-continue success">Take Mock Exam</a>
+                </div>
+                
+                <!-- Azure Card - Normal in_progress -->
+                <div class="learning-card">
+                    <div class="card-menu">
+                        <button class="card-menu-btn" onclick="toggleDropdown('azureDropdown')">⋮</button>
+                        <div class="card-dropdown" id="azureDropdown">
+                            <div class="card-dropdown-item success" onclick="markCompleted('azure')">
+                                ✓ Mark as Passed
+                            </div>
+                            <div class="card-dropdown-item danger" onclick="showArchiveModal('azure')">
+                                🗑️ Remove
+                            </div>
+                        </div>
+                    </div>
+                    <div class="learning-icon azure">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure">
+                    </div>
+                    <div class="learning-info">
+                        <div class="learning-title">Azure Administrator Associate</div>
+                        <div class="learning-subtitle">AZ-104 • Last studied 3 days ago</div>
+                        <div class="learning-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill yellow" style="width: 35%"></div>
+                            </div>
+                            <span class="progress-text">98 / 280 questions</span>
+                        </div>
+                    </div>
+                    <div class="learning-stats">
+                        <div class="stat-item">
+                            <span class="stat-value yellow">62%</span>
+                            <span class="stat-label">Pass Prediction</span>
+                            <span class="pro-only-badge" id="statProBadge2">PRO</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" style="color: #111827;">65%</span>
                             <span class="stat-label">Accuracy</span>
                         </div>
                     </div>
                     <a href="study-mode.html" class="btn-continue">Continue</a>
+                </div>
+                
+                <!-- GCP Card - Inactive (30+ days) -->
+                <div class="learning-card inactive">
+                    <div class="inactive-banner">
+                        😴 Inactive for 45 days
+                    </div>
+                    <div class="card-menu">
+                        <button class="card-menu-btn" onclick="toggleDropdown('gcpDropdown')">⋮</button>
+                        <div class="card-dropdown" id="gcpDropdown">
+                            <div class="card-dropdown-item success" onclick="markCompleted('gcp')">
+                                ✓ Mark as Passed
+                            </div>
+                            <div class="card-dropdown-item danger" onclick="showArchiveModal('gcp')">
+                                🗑️ Remove
+                            </div>
+                        </div>
+                    </div>
+                    <div class="learning-icon gcp">
+                        <svg style="height: 28px;" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
+                            <path fill="#EA4335" d="M10.313 5.376l1.887-1.5-.332-.414a5.935 5.935 0 00-5.586-1.217 5.89 5.89 0 00-3.978 4.084c-.03.113.312-.098.463-.056l2.608-.428s.127-.124.201-.205c1.16-1.266 3.126-1.432 4.465-.354l.272.09z"/>
+                            <path fill="#4285F4" d="M13.637 6.3a5.835 5.835 0 00-1.77-2.838l-1.83 1.82a3.226 3.226 0 011.193 2.564v.323c.9 0 1.63.725 1.63 1.62 0 .893-.73 1.619-1.63 1.619l-3.257-.003-.325.035v2.507l.325.053h3.257a4.234 4.234 0 004.08-2.962A4.199 4.199 0 0013.636 6.3z"/>
+                            <path fill="#34A853" d="M4.711 13.999H7.97v-2.594H4.71c-.232 0-.461-.066-.672-.161l-.458.14-1.313 1.297-.114.447a4.254 4.254 0 002.557.87z"/>
+                            <path fill="#FBBC05" d="M4.711 5.572A4.234 4.234 0 00.721 8.44a4.206 4.206 0 001.433 4.688l1.89-1.884a1.617 1.617 0 01.44-3.079 1.63 1.63 0 011.714.936l1.89-1.878A4.24 4.24 0 004.71 5.572z"/>
+                        </svg>
+                    </div>
+                    <div class="learning-info">
+                        <div class="learning-title">GCP Associate Cloud Engineer</div>
+                        <div class="learning-subtitle">ACE • Last studied 45 days ago</div>
+                        <div class="learning-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill blue" style="width: 15%"></div>
+                            </div>
+                            <span class="progress-text">28 / 186 questions</span>
+                        </div>
+                    </div>
+                    <div class="learning-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" style="color: #9ca3af;">--</span>
+                            <span class="stat-label">Pass Prediction</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" style="color: #111827;">54%</span>
+                            <span class="stat-label">Accuracy</span>
+                        </div>
+                    </div>
+                    <a href="study-mode.html" class="btn-continue secondary">Resume Learning</a>
                 </div>
                 
                 <!-- Add New Exam Button (Limited for Free) -->
@@ -949,6 +1279,31 @@
                     <span style="font-size: 20px;">+</span>
                     <span id="newExamText">Start a new certification</span>
                 </button>
+            </div>
+        </section>
+        
+        <!-- Completed Section -->
+        <section class="completed-section">
+            <div class="section-title">
+                <h2>🏆 Completed</h2>
+                <button class="toggle-completed" onclick="toggleCompletedSection()">
+                    <span id="toggleIcon">▼</span> Show
+                </button>
+            </div>
+            
+            <div id="completedList" style="display: none;">
+                <div class="completed-card">
+                    <div class="completed-icon aws">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
+                    </div>
+                    <div class="completed-info">
+                        <div class="completed-title">AWS Cloud Practitioner</div>
+                        <div class="completed-meta">CLF-C02 • Completed on Jan 15, 2026</div>
+                    </div>
+                    <div class="completed-badge">
+                        ✓ Passed
+                    </div>
+                </div>
             </div>
         </section>
         
@@ -976,7 +1331,7 @@
                     <span class="exam-card-badge">Popular</span>
                 </a>
                 
-                <a href="#" class="exam-card" id="azureCard" onclick="handleLockedExam(event, 'Azure')">
+                <a href="#" class="exam-card" id="azureCardBrowse" onclick="handleLockedExam(event, 'Azure')">
                     <span class="exam-card-lock" id="azureLock">🔒</span>
                     <div class="exam-card-icon azure">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure">
@@ -985,7 +1340,7 @@
                     <div class="exam-card-count">6 certifications</div>
                 </a>
                 
-                <a href="#" class="exam-card" id="gcpCard" onclick="handleLockedExam(event, 'GCP')">
+                <a href="#" class="exam-card" id="gcpCardBrowse" onclick="handleLockedExam(event, 'GCP')">
                     <span class="exam-card-lock" id="gcpLock">🔒</span>
                     <div class="exam-card-icon gcp">
                         <svg style="height: 32px;" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
@@ -999,7 +1354,7 @@
                     <div class="exam-card-count">4 certifications</div>
                 </a>
                 
-                <a href="#" class="exam-card" id="linuxCard" onclick="handleLockedExam(event, 'Linux')">
+                <a href="#" class="exam-card" id="linuxCardBrowse" onclick="handleLockedExam(event, 'Linux')">
                     <span class="exam-card-lock" id="linuxLock">🔒</span>
                     <div class="exam-card-icon linux">
                         <span>🐧</span>
@@ -1008,7 +1363,7 @@
                     <div class="exam-card-count">2 certifications</div>
                 </a>
                 
-                <a href="#" class="exam-card" id="securityCard" onclick="handleLockedExam(event, 'Security')">
+                <a href="#" class="exam-card" id="securityCardBrowse" onclick="handleLockedExam(event, 'Security')">
                     <span class="exam-card-lock" id="securityLock">🔒</span>
                     <div class="exam-card-icon security">
                         <span>🔒</span>
@@ -1068,8 +1423,38 @@
         </div>
     </div>
     
+    <!-- Archive Confirm Modal -->
+    <div class="modal-overlay" id="archiveModal" onclick="hideArchiveModal(event)">
+        <div class="modal confirm-modal" onclick="event.stopPropagation()">
+            <div class="modal-icon">🗑️</div>
+            <h2>Remove from Learning?</h2>
+            <p>This will move the exam to archived. You can restore it later from settings.</p>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" onclick="hideArchiveModal()">Cancel</button>
+                <button class="modal-btn danger" onclick="confirmArchive()">Remove</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Passed Confirm Modal -->
+    <div class="modal-overlay" id="passedModal" onclick="hidePassedModal(event)">
+        <div class="modal confirm-modal" onclick="event.stopPropagation()">
+            <div class="modal-icon">🎉</div>
+            <h2>Congratulations!</h2>
+            <p>Mark this exam as passed? It will move to your Completed section.</p>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" onclick="hidePassedModal()">Cancel</button>
+                <button class="modal-btn primary" onclick="confirmPassed()">Yes, I Passed!</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         let currentPlan = 'free';
+        let currentExamToArchive = null;
+        let currentExamToPassed = null;
         
         function setPlan(plan) {
             currentPlan = plan;
@@ -1114,7 +1499,7 @@
             });
             
             // Locked exam cards
-            const cardIds = ['azureCard', 'gcpCard', 'linuxCard', 'securityCard'];
+            const cardIds = ['azureCardBrowse', 'gcpCardBrowse', 'linuxCardBrowse', 'securityCardBrowse'];
             cardIds.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
@@ -1158,6 +1543,72 @@
                 showUpgradeModal();
             } else {
                 window.location.href = 'exam-select.html?provider=' + examName.toLowerCase();
+            }
+        }
+        
+        function toggleDropdown(id) {
+            // Close all other dropdowns
+            document.querySelectorAll('.card-dropdown').forEach(d => {
+                if (d.id !== id) d.classList.remove('show');
+            });
+            // Toggle current
+            document.getElementById(id).classList.toggle('show');
+        }
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.card-menu')) {
+                document.querySelectorAll('.card-dropdown').forEach(d => {
+                    d.classList.remove('show');
+                });
+            }
+        });
+        
+        function markCompleted(exam) {
+            currentExamToPassed = exam;
+            document.getElementById('passedModal').classList.add('visible');
+        }
+        
+        function hidePassedModal(event) {
+            if (!event || event.target === event.currentTarget) {
+                document.getElementById('passedModal').classList.remove('visible');
+            }
+        }
+        
+        function confirmPassed() {
+            alert('Exam marked as passed! (Demo)');
+            hidePassedModal();
+        }
+        
+        function showArchiveModal(exam) {
+            currentExamToArchive = exam;
+            document.getElementById('archiveModal').classList.add('visible');
+        }
+        
+        function hideArchiveModal(event) {
+            if (!event || event.target === event.currentTarget) {
+                document.getElementById('archiveModal').classList.remove('visible');
+            }
+        }
+        
+        function confirmArchive() {
+            alert('Exam archived! (Demo)');
+            hideArchiveModal();
+        }
+        
+        function toggleCompletedSection() {
+            const list = document.getElementById('completedList');
+            const icon = document.getElementById('toggleIcon');
+            const btn = document.querySelector('.toggle-completed');
+            
+            if (list.style.display === 'none') {
+                list.style.display = 'block';
+                icon.textContent = '▲';
+                btn.innerHTML = '<span id="toggleIcon">▲</span> Hide';
+            } else {
+                list.style.display = 'none';
+                icon.textContent = '▼';
+                btn.innerHTML = '<span id="toggleIcon">▼</span> Show';
             }
         }
         
