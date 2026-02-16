@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PasslyExam - 랜딩 페이지 와이어프레임</title>
+    <title>PasslyExam - AI 자격증 시험 준비</title>
     <style>
         * {
             margin: 0;
@@ -32,9 +32,25 @@
         }
         
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-size: 1.5rem;
             font-weight: bold;
             color: #2563eb;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
         }
         
         .nav-buttons {
@@ -75,6 +91,18 @@
             color: white;
             padding: 5rem 2rem;
             text-align: center;
+        }
+        
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2.5rem;
         }
         
         .hero h1 {
@@ -134,29 +162,39 @@
         /* Pain Points */
         .pain-section {
             background: white;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             text-align: center;
         }
         
         .section-title {
             font-size: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             color: #1e293b;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .pain-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
         .pain-card {
             padding: 2rem;
             background: #fef2f2;
-            border-radius: 12px;
+            border-radius: 16px;
             border-left: 4px solid #ef4444;
+            text-align: left;
         }
         
         .pain-card .emoji {
@@ -166,14 +204,42 @@
         
         .pain-card h3 {
             color: #dc2626;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        .pain-card p {
+            color: #7f1d1d;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .pain-card .detail {
+            color: #991b1b;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
         
         /* Solution */
         .solution-section {
-            background: #f0fdf4;
-            padding: 4rem 2rem;
+            background: linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 5rem 2rem;
             text-align: center;
+        }
+        
+        .solution-header {
+            margin-bottom: 3rem;
+        }
+        
+        .solution-header .badge {
+            display: inline-block;
+            background: #22c55e;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
         
         .solution-grid {
@@ -186,26 +252,55 @@
         
         .solution-card {
             background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border-top: 4px solid #22c55e;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-5px);
         }
         
         .solution-card .icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
         }
         
         .solution-card h3 {
             color: #166534;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        .solution-card p {
+            color: #15803d;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .solution-card .highlight {
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
         
         /* How it works */
         .how-section {
             background: white;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             text-align: center;
         }
         
@@ -251,7 +346,7 @@
         /* Pricing */
         .pricing-section {
             background: #f8fafc;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             text-align: center;
         }
         
@@ -279,7 +374,7 @@
         }
         
         .pricing-card.featured::before {
-            content: "인기";
+            content: "🔥 인기";
             position: absolute;
             top: -12px;
             left: 50%;
@@ -327,25 +422,32 @@
         /* Testimonials */
         .testimonial-section {
             background: white;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             text-align: center;
+            overflow: hidden;
         }
         
-        .testimonials {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            max-width: 1000px;
+        .testimonial-container {
+            position: relative;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
+        .testimonial-track {
+            display: flex;
+            gap: 2rem;
+            transition: transform 0.5s ease;
+        }
+        
         .testimonial-card {
-            background: #f8fafc;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             padding: 2rem;
-            border-radius: 12px;
-            max-width: 400px;
+            border-radius: 16px;
+            min-width: 350px;
+            max-width: 350px;
             text-align: left;
+            flex-shrink: 0;
+            border: 1px solid #e2e8f0;
         }
         
         .testimonial-card .stars {
@@ -355,20 +457,98 @@
         }
         
         .testimonial-card .quote {
-            font-style: italic;
-            margin-bottom: 1rem;
-            color: #475569;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            color: #334155;
+            line-height: 1.7;
         }
         
-        .testimonial-card .author {
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .author-info .name {
             font-weight: bold;
             color: #1e293b;
+        }
+        
+        .author-info .role {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .author-info .cert {
+            font-size: 0.8rem;
+            color: #22c55e;
+            font-weight: 500;
+        }
+        
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .carousel-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-btn:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+        
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .carousel-dot.active {
+            background: #2563eb;
+            width: 30px;
+            border-radius: 5px;
         }
         
         /* FAQ */
         .faq-section {
             background: #f8fafc;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
         }
         
         .faq-list {
@@ -379,8 +559,9 @@
         .faq-item {
             background: white;
             margin-bottom: 1rem;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
         .faq-question {
@@ -401,7 +582,7 @@
         .final-cta {
             background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
             color: white;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             text-align: center;
         }
         
@@ -459,13 +640,20 @@
             .pricing-card.featured {
                 transform: scale(1);
             }
+            
+            .testimonial-card {
+                min-width: 300px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="logo">PasslyExam</div>
+        <div class="logo">
+            <div class="logo-icon">P</div>
+            PasslyExam
+        </div>
         <div class="nav-buttons">
             <a href="#" class="btn btn-outline">로그인</a>
             <a href="#" class="btn btn-primary">무료 시작</a>
@@ -474,6 +662,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="hero-icon">🎯</div>
         <h1>AI가 당신의 <span>약점</span>을 찾아<br>합격까지 최단 경로를 안내합니다</h1>
         <p class="subtitle">AWS, Azure, GCP 자격증 준비<br>월 $2로 무제한 AI 맞춤 연습</p>
         <div class="hero-cta">
@@ -489,54 +678,83 @@
 
     <!-- Pain Points -->
     <section class="pain-section">
-        <h2 class="section-title">자격증 준비, 이런 경험 있으시죠?</h2>
+        <h2 class="section-title">자격증 시험 준비, 이런 경험 있으시죠?</h2>
+        <p class="section-subtitle">수많은 수험생들이 같은 고민을 하고 있습니다</p>
         <div class="pain-grid">
             <div class="pain-card">
                 <div class="emoji">💸</div>
-                <h3>비싼 덤프</h3>
-                <p>$50~$100 덤프 사이트... 한 번 쓰고 끝</p>
+                <h3>비싼 덤프 비용</h3>
+                <p>$50~$100짜리 덤프, 한 번 쓰고 끝</p>
+                <div class="detail">
+                    시험 한 번에 합격하면 다행이지만, 불합격하면 또 구매해야 합니다. 
+                    업데이트된 버전은 추가 비용... 끝없는 지출의 악순환.
+                </div>
             </div>
             <div class="pain-card">
                 <div class="emoji">📄</div>
-                <h3>정적인 PDF</h3>
-                <p>같은 문제 반복하다 외워버림</p>
+                <h3>정적인 PDF 문제집</h3>
+                <p>같은 문제 반복하다 그냥 외워버림</p>
+                <div class="detail">
+                    500문제 덤프를 3번 돌리면 답이 외워집니다. 
+                    "이건 B였지" — 그런데 막상 시험장에선 비슷하지만 다른 문제가 나옵니다.
+                </div>
             </div>
             <div class="pain-card">
                 <div class="emoji">❓</div>
                 <h3>약점 파악 불가</h3>
                 <p>뭘 틀렸는지, 왜 틀렸는지 모름</p>
+                <div class="detail">
+                    "정답: C" 끝. 왜 A가 아닌지, 내가 어떤 개념이 부족한지 알 수 없습니다. 
+                    같은 유형을 계속 틀리는데 원인도 모른 채 반복.
+                </div>
             </div>
             <div class="pain-card">
                 <div class="emoji">😰</div>
-                <h3>불안한 실력</h3>
+                <h3>불안한 실력 체감</h3>
                 <p>시험장 가기 전까지 내 실력을 모름</p>
+                <div class="detail">
+                    덤프 정답률 90%인데 진짜 합격할 수 있을까? 
+                    문제를 외운 건지, 진짜 아는 건지 확신이 없어서 시험 전날까지 불안합니다.
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Solution -->
     <section class="solution-section">
-        <h2 class="section-title">PasslyExam은 다릅니다</h2>
+        <div class="solution-header">
+            <span class="badge">✨ 새로운 방식</span>
+            <h2 class="section-title">PasslyExam은 다릅니다</h2>
+            <p class="section-subtitle">AI 기반 적응형 학습으로 진짜 실력을 키워드립니다</p>
+        </div>
         <div class="solution-grid">
             <div class="solution-card">
                 <div class="icon">🤖</div>
-                <h3>AI 약점 분석</h3>
-                <p>틀린 문제 패턴을 AI가 분석하고<br>취약 영역을 집중 공략합니다</p>
+                <h3>AI 약점 정밀 분석</h3>
+                <p>틀린 문제의 패턴을 AI가 분석합니다. 단순히 "VPC 문제 틀림"이 아니라 
+                "VPC 피어링과 Transit Gateway 차이점"처럼 구체적인 취약점을 찾아냅니다.</p>
+                <div class="highlight">💡 "이 부분을 더 공부하세요" 명확한 가이드 제공</div>
             </div>
             <div class="solution-card">
                 <div class="icon">♾️</div>
-                <h3>무한 문제 생성</h3>
-                <p>같은 개념, 다른 문제로<br>진짜 실력을 확인하세요</p>
+                <h3>무한 변형 문제 생성</h3>
+                <p>같은 개념을 테스트하지만 매번 다른 문제! AI가 실시간으로 새로운 시나리오와 
+                보기를 생성해서 진짜 이해했는지 확인합니다.</p>
+                <div class="highlight">🔄 "외워서 맞추기" 불가능 — 진짜 실력만 통과</div>
             </div>
             <div class="solution-card">
                 <div class="icon">💰</div>
-                <h3>월 $2 구독</h3>
-                <p>덤프 1개 가격으로<br>모든 자격증 무제한 연습</p>
+                <h3>월 $2 올인원 구독</h3>
+                <p>덤프 1개 가격이면 1년 내내 모든 자격증을 무제한으로 연습할 수 있습니다. 
+                AWS, Azure, GCP 다 포함. 추가 비용 없음.</p>
+                <div class="highlight">📊 덤프 대비 95% 비용 절감</div>
             </div>
             <div class="solution-card">
                 <div class="icon">📊</div>
-                <h3>실시간 합격 예측</h3>
-                <p>지금 시험 보면 몇 점?<br>바로 확인하세요</p>
+                <h3>실시간 합격 확률 예측</h3>
+                <p>지금 시험 보면 몇 점일까? AI가 현재 실력을 분석해서 예상 점수와 
+                합격 확률을 실시간으로 보여줍니다. 준비 완료되면 시험 보세요!</p>
+                <div class="highlight">🎯 "시험 봐도 될까?" 고민 끝</div>
             </div>
         </div>
     </section>
@@ -544,6 +762,7 @@
     <!-- How it works -->
     <section class="how-section">
         <h2 class="section-title">3단계로 시작하세요</h2>
+        <p class="section-subtitle">복잡한 설정 없이 바로 학습을 시작할 수 있습니다</p>
         <div class="steps">
             <div class="step">
                 <div class="step-number">1</div>
@@ -568,6 +787,7 @@
     <!-- Pricing -->
     <section class="pricing-section">
         <h2 class="section-title">심플한 가격</h2>
+        <p class="section-subtitle">숨겨진 비용 없이 투명하게</p>
         <div class="pricing-grid">
             <div class="pricing-card">
                 <h3>Free</h3>
@@ -596,18 +816,94 @@
 
     <!-- Testimonials -->
     <section class="testimonial-section">
-        <h2 class="section-title">사용자 후기</h2>
-        <div class="testimonials">
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p class="quote">"2주 만에 AWS SAA 합격했습니다. 틀린 문제 위주로 계속 나와서 효율적이었어요."</p>
-                <p class="author">김OO, 개발자</p>
+        <h2 class="section-title">합격생들의 후기</h2>
+        <p class="section-subtitle">PasslyExam으로 자격증을 취득한 분들의 이야기</p>
+        <div class="testimonial-container">
+            <div class="testimonial-track" id="testimonialTrack">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"2주 만에 AWS SAA 합격했습니다. 틀린 문제 위주로 계속 나와서 효율적이었어요. 
+                    특히 VPC 관련 문제가 약했는데 집중적으로 연습할 수 있었습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">김</div>
+                        <div class="author-info">
+                            <div class="name">김성훈</div>
+                            <div class="role">백엔드 개발자 3년차</div>
+                            <div class="cert">✓ AWS SAA-C03 합격</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"기존 덤프는 3번 돌리니까 답이 외워졌는데, 여기는 같은 개념이어도 문제가 달라서 
+                    진짜 실력이 늘어요. 시험장에서 당황하지 않았습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">이</div>
+                        <div class="author-info">
+                            <div class="name">이지원</div>
+                            <div class="role">컴퓨터공학과 4학년</div>
+                            <div class="cert">✓ AWS CLF + SAA 동시 합격</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"Azure AZ-104 준비하면서 가장 좋았던 건 실시간 합격 예측이에요. 
+                    85% 넘으면 시험 보라고 해서 그때 봤더니 진짜 합격! 불안감이 사라졌어요."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">박</div>
+                        <div class="author-info">
+                            <div class="name">박준혁</div>
+                            <div class="role">클라우드 엔지니어</div>
+                            <div class="cert">✓ Azure AZ-104 합격</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"회사에서 GCP 자격증 따오라고 해서 급하게 준비했는데, 
+                    AI가 약점 잡아주니까 3주 만에 붙었어요. 월 $2가 이렇게 가성비 좋을 줄이야."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">최</div>
+                        <div class="author-info">
+                            <div class="name">최민서</div>
+                            <div class="role">데브옵스 엔지니어</div>
+                            <div class="cert">✓ GCP ACE 합격</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"이직 준비하면서 AWS 자격증 3개를 2달 만에 땄어요. 
+                    예전엔 덤프마다 $80씩 썼는데 이건 $2로 다 되니까 진짜 혁명이에요."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">정</div>
+                        <div class="author-info">
+                            <div class="name">정유진</div>
+                            <div class="role">풀스택 개발자</div>
+                            <div class="cert">✓ AWS SAA + DVA + SOA 합격</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★☆</div>
+                    <p class="quote">"영어 덤프만 봤었는데 한국어 해설이 있어서 너무 좋았어요. 
+                    개념 이해가 훨씬 빨랐습니다. 다만 고급 자격증 문제는 더 많아졌으면 좋겠어요."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">한</div>
+                        <div class="author-info">
+                            <div class="name">한소희</div>
+                            <div class="role">주니어 개발자</div>
+                            <div class="cert">✓ AWS SAA 합격</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p class="quote">"기존 덤프는 외워버렸는데, 여기는 같은 개념이어도 문제가 달라서 진짜 실력이 늘어요."</p>
-                <p class="author">이OO, 대학생</p>
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="moveCarousel(-1)">←</button>
+                <button class="carousel-btn" onclick="moveCarousel(1)">→</button>
             </div>
+            <div class="carousel-dots" id="carouselDots"></div>
         </div>
     </section>
 
@@ -621,8 +917,8 @@
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    AWS (SAA, SAP, DVA 등), Azure (AZ-104, AZ-900 등), GCP 자격증을 지원합니다. 
-                    지속적으로 추가되고 있습니다.
+                    AWS (SAA, SAP, DVA, SOA 등), Azure (AZ-104, AZ-900, AZ-305 등), GCP (ACE, PCA) 자격증을 지원합니다. 
+                    매월 새로운 자격증이 추가되고 있습니다.
                 </div>
             </div>
             <div class="faq-item">
@@ -661,7 +957,49 @@
             <a href="#">개인정보처리방침</a>
             <a href="#">문의하기</a>
         </div>
-        <p>© 2026 PasslyExam by JHAICORP. All rights reserved.</p>
+        <p>© 2026 PasslyExam. All rights reserved.</p>
     </footer>
+
+    <script>
+        let currentSlide = 0;
+        const track = document.getElementById('testimonialTrack');
+        const cards = track.children;
+        const totalCards = cards.length;
+        const visibleCards = window.innerWidth < 768 ? 1 : 3;
+        const maxSlide = totalCards - visibleCards;
+        
+        // Create dots
+        const dotsContainer = document.getElementById('carouselDots');
+        for (let i = 0; i <= maxSlide; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+        
+        function updateDots() {
+            const dots = dotsContainer.children;
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = 'carousel-dot' + (i === currentSlide ? ' active' : '');
+            }
+        }
+        
+        function moveCarousel(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = maxSlide;
+            if (currentSlide > maxSlide) currentSlide = 0;
+            goToSlide(currentSlide);
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            const cardWidth = cards[0].offsetWidth + 32; // card width + gap
+            track.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+            updateDots();
+        }
+        
+        // Auto slide every 5 seconds
+        setInterval(() => moveCarousel(1), 5000);
+    </script>
 </body>
 </html>
