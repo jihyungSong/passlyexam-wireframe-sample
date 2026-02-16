@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PasslyExam - 랜딩 페이지 와이어프레임</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #2563eb;
+            color: #2563eb;
+        }
+        
+        .btn-primary {
+            background: #2563eb;
+            border: 2px solid #2563eb;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            color: #fbbf24;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-cta {
+            background: #fbbf24;
+            color: #1e40af;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+        }
+        
+        .btn-demo {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 1rem 2rem;
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+        
+        .trust-badges span::before {
+            content: "✓ ";
+            color: #4ade80;
+        }
+        
+        /* Pain Points */
+        .pain-section {
+            background: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #1e293b;
+        }
+        
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .pain-card {
+            padding: 2rem;
+            background: #fef2f2;
+            border-radius: 12px;
+            border-left: 4px solid #ef4444;
+        }
+        
+        .pain-card .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pain-card h3 {
+            color: #dc2626;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Solution */
+        .solution-section {
+            background: #f0fdf4;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .solution-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid #22c55e;
+        }
+        
+        .solution-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .solution-card h3 {
+            color: #166534;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* How it works */
+        .how-section {
+            background: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        
+        .step-arrow {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #cbd5e1;
+        }
+        
+        /* Pricing */
+        .pricing-section {
+            background: #f8fafc;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 300px;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border: 3px solid #2563eb;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.featured::before {
+            content: "인기";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2563eb;
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #64748b;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .pricing-features li::before {
+            content: "✓ ";
+            color: #22c55e;
+            font-weight: bold;
+        }
+        
+        /* Testimonials */
+        .testimonial-section {
+            background: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .testimonials {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 400px;
+            text-align: left;
+        }
+        
+        .testimonial-card .stars {
+            color: #fbbf24;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-card .quote {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #475569;
+        }
+        
+        .testimonial-card .author {
+            font-weight: bold;
+            color: #1e293b;
+        }
+        
+        /* FAQ */
+        .faq-section {
+            background: #f8fafc;
+            padding: 4rem 2rem;
+        }
+        
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #64748b;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .final-cta p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .trust-badges {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .step-arrow {
+                display: none;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">PasslyExam</div>
+        <div class="nav-buttons">
+            <a href="#" class="btn btn-outline">로그인</a>
+            <a href="#" class="btn btn-primary">무료 시작</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>AI가 당신의 <span>약점</span>을 찾아<br>합격까지 최단 경로를 안내합니다</h1>
+        <p class="subtitle">AWS, Azure, GCP 자격증 준비<br>월 $2로 무제한 AI 맞춤 연습</p>
+        <div class="hero-cta">
+            <a href="#" class="btn btn-cta">무료로 시작하기</a>
+            <a href="#" class="btn btn-demo">데모 체험</a>
+        </div>
+        <div class="trust-badges">
+            <span>신용카드 불필요</span>
+            <span>언제든 취소 가능</span>
+            <span>5분 안에 시작</span>
+        </div>
+    </section>
+
+    <!-- Pain Points -->
+    <section class="pain-section">
+        <h2 class="section-title">자격증 준비, 이런 경험 있으시죠?</h2>
+        <div class="pain-grid">
+            <div class="pain-card">
+                <div class="emoji">💸</div>
+                <h3>비싼 덤프</h3>
+                <p>$50~$100 덤프 사이트... 한 번 쓰고 끝</p>
+            </div>
+            <div class="pain-card">
+                <div class="emoji">📄</div>
+                <h3>정적인 PDF</h3>
+                <p>같은 문제 반복하다 외워버림</p>
+            </div>
+            <div class="pain-card">
+                <div class="emoji">❓</div>
+                <h3>약점 파악 불가</h3>
+                <p>뭘 틀렸는지, 왜 틀렸는지 모름</p>
+            </div>
+            <div class="pain-card">
+                <div class="emoji">😰</div>
+                <h3>불안한 실력</h3>
+                <p>시험장 가기 전까지 내 실력을 모름</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="solution-section">
+        <h2 class="section-title">PasslyExam은 다릅니다</h2>
+        <div class="solution-grid">
+            <div class="solution-card">
+                <div class="icon">🤖</div>
+                <h3>AI 약점 분석</h3>
+                <p>틀린 문제 패턴을 AI가 분석하고<br>취약 영역을 집중 공략합니다</p>
+            </div>
+            <div class="solution-card">
+                <div class="icon">♾️</div>
+                <h3>무한 문제 생성</h3>
+                <p>같은 개념, 다른 문제로<br>진짜 실력을 확인하세요</p>
+            </div>
+            <div class="solution-card">
+                <div class="icon">💰</div>
+                <h3>월 $2 구독</h3>
+                <p>덤프 1개 가격으로<br>모든 자격증 무제한 연습</p>
+            </div>
+            <div class="solution-card">
+                <div class="icon">📊</div>
+                <h3>실시간 합격 예측</h3>
+                <p>지금 시험 보면 몇 점?<br>바로 확인하세요</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-section">
+        <h2 class="section-title">3단계로 시작하세요</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>자격증 선택</h3>
+                <p>AWS, Azure, GCP 등<br>원하는 시험 선택</p>
+                <span class="step-arrow">→</span>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>문제 풀기</h3>
+                <p>AI가 실시간으로<br>실력을 분석합니다</p>
+                <span class="step-arrow">→</span>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>약점 집중</h3>
+                <p>취약한 영역 위주로<br>맞춤 문제 제공</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section">
+        <h2 class="section-title">심플한 가격</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Free</h3>
+                <div class="price">$0<span>/월</span></div>
+                <ul class="pricing-features">
+                    <li>하루 10문제</li>
+                    <li>기본 해설</li>
+                    <li>1개 자격증</li>
+                </ul>
+                <a href="#" class="btn btn-outline" style="width: 100%;">무료 시작</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Pro</h3>
+                <div class="price">$2<span>/월</span></div>
+                <ul class="pricing-features">
+                    <li>무제한 문제</li>
+                    <li>AI 약점 분석</li>
+                    <li>모든 자격증</li>
+                    <li>상세 해설</li>
+                    <li>합격 예측</li>
+                </ul>
+                <a href="#" class="btn btn-primary" style="width: 100%;">Pro 시작하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonial-section">
+        <h2 class="section-title">사용자 후기</h2>
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="quote">"2주 만에 AWS SAA 합격했습니다. 틀린 문제 위주로 계속 나와서 효율적이었어요."</p>
+                <p class="author">김OO, 개발자</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="quote">"기존 덤프는 외워버렸는데, 여기는 같은 개념이어도 문제가 달라서 진짜 실력이 늘어요."</p>
+                <p class="author">이OO, 대학생</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <h2 class="section-title" style="text-align: center;">자주 묻는 질문</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>어떤 자격증을 지원하나요?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    AWS (SAA, SAP, DVA 등), Azure (AZ-104, AZ-900 등), GCP 자격증을 지원합니다. 
+                    지속적으로 추가되고 있습니다.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>실제 시험과 얼마나 비슷한가요?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    실제 시험 형식과 난이도를 기반으로 AI가 문제를 생성합니다. 
+                    동일한 문제가 아닌 같은 개념을 테스트하는 새로운 문제입니다.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>환불이 가능한가요?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    7일 이내 100% 환불을 보장합니다. 언제든 구독을 취소할 수 있습니다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <h2>다음 시험, 한 번에 붙고 싶다면</h2>
+        <p>지금 바로 무료로 시작하세요. 5분이면 됩니다.</p>
+        <a href="#" class="btn btn-cta">무료로 시작하기</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="#">문의하기</a>
+        </div>
+        <p>© 2026 PasslyExam by JHAICORP. All rights reserved.</p>
+    </footer>
+</body>
+</html>
