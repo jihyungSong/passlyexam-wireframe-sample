@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PasslyExam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .btn-logout {
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #6b7280;
+            background: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-logout:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        /* Main Content */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+        
+        /* Welcome Section */
+        .welcome {
+            margin-bottom: 32px;
+        }
+        
+        .welcome h1 {
+            font-size: 28px;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .welcome p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+        
+        /* Section Title */
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .section-title h2 {
+            font-size: 18px;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* My Learning Section */
+        .my-learning {
+            margin-bottom: 40px;
+        }
+        
+        .learning-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .learning-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.2s;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .learning-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .learning-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .learning-icon.aws {
+            background: #ff9900;
+        }
+        
+        .learning-icon.azure {
+            background: #0078d4;
+        }
+        
+        .learning-icon.gcp {
+            background: #4285f4;
+        }
+        
+        .learning-icon img {
+            height: 28px;
+            width: auto;
+        }
+        
+        .learning-info {
+            flex: 1;
+        }
+        
+        .learning-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .learning-subtitle {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+        
+        .learning-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+        
+        .progress-fill.green { background: linear-gradient(90deg, #22c55e, #16a34a); }
+        .progress-fill.yellow { background: linear-gradient(90deg, #eab308, #ca8a04); }
+        .progress-fill.red { background: linear-gradient(90deg, #ef4444, #dc2626); }
+        
+        .progress-text {
+            font-size: 13px;
+            color: #6b7280;
+            white-space: nowrap;
+        }
+        
+        .learning-stats {
+            display: flex;
+            gap: 24px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .stat-value.green { color: #22c55e; }
+        .stat-value.yellow { color: #eab308; }
+        .stat-value.red { color: #ef4444; }
+        
+        .stat-label {
+            font-size: 11px;
+            color: #9ca3af;
+            text-transform: uppercase;
+        }
+        
+        .btn-continue {
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        
+        .btn-continue:hover {
+            background: #1d4ed8;
+        }
+        
+        .btn-new-exam {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 16px;
+            background: white;
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-new-exam:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            background: #eff6ff;
+        }
+        
+        /* Browse Exams Section */
+        .browse-exams {
+            margin-bottom: 40px;
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .category-tab {
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .category-tab:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+        
+        .category-tab.active {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: white;
+        }
+        
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        
+        .exam-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .exam-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            border-color: #2563eb;
+        }
+        
+        .exam-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+        }
+        
+        .exam-card-icon.aws { background: #fff3e0; }
+        .exam-card-icon.azure { background: #e3f2fd; }
+        .exam-card-icon.gcp { background: #fce4ec; }
+        .exam-card-icon.linux { background: #fff8e1; }
+        .exam-card-icon.security { background: #f3e5f5; }
+        .exam-card-icon.other { background: #e8f5e9; }
+        
+        .exam-card-icon img {
+            height: 32px;
+            width: auto;
+        }
+        
+        .exam-card-icon span {
+            font-size: 28px;
+        }
+        
+        .exam-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .exam-card-count {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+        
+        .exam-card-badge {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 8px;
+            background: #dbeafe;
+            color: #2563eb;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+        
+        .exam-card-badge.coming {
+            background: #f3f4f6;
+            color: #9ca3af;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .empty-state h3 {
+            font-size: 18px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .empty-state p {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .learning-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .learning-stats {
+                width: 100%;
+                justify-content: space-around;
+                margin: 12px 0;
+            }
+            
+            .btn-continue {
+                width: 100%;
+            }
+            
+            .header-right .user-name {
+                display: none;
+            }
+        }
+        
+        /* Navigation for wireframe */
+        .wireframe-nav {
+            background: #1f2937;
+            padding: 12px 24px;
+        }
+        
+        .wireframe-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .wireframe-nav span {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+        
+        .wireframe-nav a {
+            color: #60a5fa;
+            font-size: 13px;
+            text-decoration: none;
+        }
+        
+        .wireframe-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .wireframe-nav a.active {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Wireframe Navigation -->
+    <nav class="wireframe-nav">
+        <div class="wireframe-nav-content">
+            <span>📐 Wireframe:</span>
+            <a href="index.html">Landing</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="exam-select.html">Exam Select</a>
+            <a href="study-mode.html">Study Mode</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="result.html">Result</a>
+        </div>
+    </nav>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="dashboard.html" class="logo">
+                <div class="logo-icon">P</div>
+                <span class="logo-text">PasslyExam</span>
+            </a>
+            <div class="header-right">
+                <div class="user-info">
+                    <div class="user-avatar">JH</div>
+                    <span class="user-name">JH Song</span>
+                </div>
+                <button class="btn-logout">Logout</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Welcome -->
+        <div class="welcome">
+            <h1>Welcome back, JH! 👋</h1>
+            <p>Continue your certification journey</p>
+        </div>
+        
+        <!-- My Learning Section -->
+        <section class="my-learning">
+            <div class="section-title">
+                <h2>📚 My Learning</h2>
+            </div>
+            
+            <div class="learning-cards">
+                <!-- AWS SAA Card -->
+                <div class="learning-card">
+                    <div class="learning-icon aws">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
+                    </div>
+                    <div class="learning-info">
+                        <div class="learning-title">AWS Solutions Architect Associate</div>
+                        <div class="learning-subtitle">SAA-C03 • Last studied 2 hours ago</div>
+                        <div class="learning-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill green" style="width: 65%"></div>
+                            </div>
+                            <span class="progress-text">127 / 342 questions</span>
+                        </div>
+                    </div>
+                    <div class="learning-stats">
+                        <div class="stat-item">
+                            <span class="stat-value green">78%</span>
+                            <span class="stat-label">Pass Prediction</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" style="color: #111827;">73%</span>
+                            <span class="stat-label">Accuracy</span>
+                        </div>
+                    </div>
+                    <a href="study-mode.html" class="btn-continue">Continue</a>
+                </div>
+                
+                <!-- Azure AZ-104 Card -->
+                <div class="learning-card">
+                    <div class="learning-icon azure">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure">
+                    </div>
+                    <div class="learning-info">
+                        <div class="learning-title">Azure Administrator Associate</div>
+                        <div class="learning-subtitle">AZ-104 • Last studied 3 days ago</div>
+                        <div class="learning-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill yellow" style="width: 25%"></div>
+                            </div>
+                            <span class="progress-text">45 / 280 questions</span>
+                        </div>
+                    </div>
+                    <div class="learning-stats">
+                        <div class="stat-item">
+                            <span class="stat-value yellow">52%</span>
+                            <span class="stat-label">Pass Prediction</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" style="color: #111827;">58%</span>
+                            <span class="stat-label">Accuracy</span>
+                        </div>
+                    </div>
+                    <a href="study-mode.html" class="btn-continue">Continue</a>
+                </div>
+                
+                <!-- Add New Exam Button -->
+                <button class="btn-new-exam" onclick="location.href='exam-select.html'">
+                    <span style="font-size: 20px;">+</span>
+                    Start a new certification
+                </button>
+            </div>
+        </section>
+        
+        <!-- Browse Exams Section -->
+        <section class="browse-exams">
+            <div class="section-title">
+                <h2>🎯 Browse Exams</h2>
+            </div>
+            
+            <div class="category-tabs">
+                <button class="category-tab active">All</button>
+                <button class="category-tab">Cloud</button>
+                <button class="category-tab">IT General</button>
+                <button class="category-tab">Security</button>
+                <button class="category-tab">Coming Soon</button>
+            </div>
+            
+            <div class="exam-grid">
+                <a href="exam-select.html?provider=aws" class="exam-card">
+                    <div class="exam-card-icon aws">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
+                    </div>
+                    <div class="exam-card-title">AWS</div>
+                    <div class="exam-card-count">8 certifications</div>
+                    <span class="exam-card-badge">Popular</span>
+                </a>
+                
+                <a href="exam-select.html?provider=azure" class="exam-card">
+                    <div class="exam-card-icon azure">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure">
+                    </div>
+                    <div class="exam-card-title">Azure</div>
+                    <div class="exam-card-count">6 certifications</div>
+                </a>
+                
+                <a href="exam-select.html?provider=gcp" class="exam-card">
+                    <div class="exam-card-icon gcp">
+                        <svg style="height: 32px;" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
+                            <path fill="#EA4335" d="M10.313 5.376l1.887-1.5-.332-.414a5.935 5.935 0 00-5.586-1.217 5.89 5.89 0 00-3.978 4.084c-.03.113.312-.098.463-.056l2.608-.428s.127-.124.201-.205c1.16-1.266 3.126-1.432 4.465-.354l.272.09z"/>
+                            <path fill="#4285F4" d="M13.637 6.3a5.835 5.835 0 00-1.77-2.838l-1.83 1.82a3.226 3.226 0 011.193 2.564v.323c.9 0 1.63.725 1.63 1.62 0 .893-.73 1.619-1.63 1.619l-3.257-.003-.325.035v2.507l.325.053h3.257a4.234 4.234 0 004.08-2.962A4.199 4.199 0 0013.636 6.3z"/>
+                            <path fill="#34A853" d="M4.711 13.999H7.97v-2.594H4.71c-.232 0-.461-.066-.672-.161l-.458.14-1.313 1.297-.114.447a4.254 4.254 0 002.557.87z"/>
+                            <path fill="#FBBC05" d="M4.711 5.572A4.234 4.234 0 00.721 8.44a4.206 4.206 0 001.433 4.688l1.89-1.884a1.617 1.617 0 01.44-3.079 1.63 1.63 0 011.714.936l1.89-1.878A4.24 4.24 0 004.71 5.572z"/>
+                        </svg>
+                    </div>
+                    <div class="exam-card-title">GCP</div>
+                    <div class="exam-card-count">4 certifications</div>
+                </a>
+                
+                <a href="#" class="exam-card">
+                    <div class="exam-card-icon linux">
+                        <span>🐧</span>
+                    </div>
+                    <div class="exam-card-title">Linux</div>
+                    <div class="exam-card-count">2 certifications</div>
+                </a>
+                
+                <a href="#" class="exam-card">
+                    <div class="exam-card-icon security">
+                        <span>🔒</span>
+                    </div>
+                    <div class="exam-card-title">Security</div>
+                    <div class="exam-card-count">3 certifications</div>
+                </a>
+                
+                <a href="#" class="exam-card">
+                    <div class="exam-card-icon other">
+                        <span>📊</span>
+                    </div>
+                    <div class="exam-card-title">OA Tests</div>
+                    <div class="exam-card-count">Coming soon</div>
+                    <span class="exam-card-badge coming">Soon</span>
+                </a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

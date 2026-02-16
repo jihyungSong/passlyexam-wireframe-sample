@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Exam - PasslyExam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+        
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        
+        .back-link:hover {
+            color: #2563eb;
+        }
+        
+        /* Main Content */
+        .main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+        
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 28px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .page-title p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+        
+        /* Provider Header */
+        .provider-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 20px 24px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .provider-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ff9900;
+        }
+        
+        .provider-icon img {
+            height: 36px;
+            width: auto;
+        }
+        
+        .provider-info h2 {
+            font-size: 24px;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .provider-info p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        /* Exam List */
+        .exam-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .exam-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 24px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .exam-item:hover {
+            border-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+        
+        .exam-item.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .exam-item.disabled:hover {
+            border-color: transparent;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .exam-code {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .exam-code span {
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .exam-info {
+            flex: 1;
+        }
+        
+        .exam-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .exam-desc {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+        
+        .exam-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .exam-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            color: #9ca3af;
+        }
+        
+        .exam-badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .exam-badge.available {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        
+        .exam-badge.coming {
+            background: #f3f4f6;
+            color: #9ca3af;
+        }
+        
+        .exam-badge.popular {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        
+        .exam-arrow {
+            color: #d1d5db;
+            font-size: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .exam-item:hover .exam-arrow {
+            transform: translateX(4px);
+            color: #2563eb;
+        }
+        
+        /* Level indicator */
+        .level-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .level-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e5e7eb;
+        }
+        
+        .level-dot.filled {
+            background: #2563eb;
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .exam-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .exam-meta {
+                justify-content: center;
+            }
+            
+            .exam-arrow {
+                display: none;
+            }
+        }
+        
+        /* Navigation for wireframe */
+        .wireframe-nav {
+            background: #1f2937;
+            padding: 12px 24px;
+        }
+        
+        .wireframe-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .wireframe-nav span {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+        
+        .wireframe-nav a {
+            color: #60a5fa;
+            font-size: 13px;
+            text-decoration: none;
+        }
+        
+        .wireframe-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .wireframe-nav a.active {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Wireframe Navigation -->
+    <nav class="wireframe-nav">
+        <div class="wireframe-nav-content">
+            <span>📐 Wireframe:</span>
+            <a href="index.html">Landing</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="exam-select.html" class="active">Exam Select</a>
+            <a href="study-mode.html">Study Mode</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="result.html">Result</a>
+        </div>
+    </nav>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="dashboard.html" class="logo">
+                <div class="logo-icon">P</div>
+                <span class="logo-text">PasslyExam</span>
+            </a>
+            <a href="dashboard.html" class="back-link">
+                ← Back to Dashboard
+            </a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Provider Header -->
+        <div class="provider-header">
+            <div class="provider-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
+            </div>
+            <div class="provider-info">
+                <h2>AWS Certifications</h2>
+                <p>Amazon Web Services certification exams</p>
+            </div>
+        </div>
+        
+        <!-- Exam List -->
+        <div class="exam-list">
+            <!-- SAA-C03 -->
+            <a href="study-mode.html" class="exam-item">
+                <div class="exam-code">
+                    <span>SAA<br>C03</span>
+                </div>
+                <div class="exam-info">
+                    <div class="exam-name">Solutions Architect Associate</div>
+                    <div class="exam-desc">Design distributed systems on AWS</div>
+                    <div class="exam-meta">
+                        <span class="exam-meta-item">📚 342 questions</span>
+                        <span class="exam-meta-item">⏱️ 130 min exam</span>
+                        <span class="exam-meta-item">
+                            Level: 
+                            <span class="level-dots">
+                                <span class="level-dot filled"></span>
+                                <span class="level-dot filled"></span>
+                                <span class="level-dot"></span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <span class="exam-badge popular">🔥 Popular</span>
+                <span class="exam-arrow">→</span>
+            </a>
+            
+            <!-- DVA-C02 -->
+            <a href="study-mode.html" class="exam-item">
+                <div class="exam-code">
+                    <span>DVA<br>C02</span>
+                </div>
+                <div class="exam-info">
+                    <div class="exam-name">Developer Associate</div>
+                    <div class="exam-desc">Develop and maintain AWS applications</div>
+                    <div class="exam-meta">
+                        <span class="exam-meta-item">📚 280 questions</span>
+                        <span class="exam-meta-item">⏱️ 130 min exam</span>
+                        <span class="exam-meta-item">
+                            Level: 
+                            <span class="level-dots">
+                                <span class="level-dot filled"></span>
+                                <span class="level-dot filled"></span>
+                                <span class="level-dot"></span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <span class="exam-badge available">✓ Available</span>
+                <span class="exam-arrow">→</span>
+            </a>
+            
+            <!-- SOA-C02 -->
+            <a href="study-mode.html" class="exam-item">
+                <div class="exam-code">
+                    <span>SOA<br>C02</span>
+                </div>
+                <div class="exam-info">
+                    <div class="exam-name">SysOps Administrator Associate</div>
+                    <div class="exam-desc">Deploy and manage AWS systems</div>
+                    <div class="exam-meta">
+                        <span class="exam-meta-item">📚 256 questions</span>
+                        <span class="exam-meta-item">⏱️ 130 min exam</span>
+                        <span class="exam-meta-item">
+                            Level: 
+                            <span class="level-dots">
+                                <span class="level-dot filled"></span>
+                                <span class="level-dot filled"></span>
+                                <span class="level-dot"></span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <span class="exam-badge available">✓ Available</span>
+                <span class="exam-arrow">→</span>
+            </a>
+            
+            <!-- SAP-C02 -->
+            <a href="#" class="exam-item disabled">
+                <div class="exam-code">
+                    <span>SAP<br>C02</span>
+                </div>
+                <div class="exam-info">
+                    <div class="exam-name">Solutions Architect Professional</div>
+                    <div class="exam-desc">Advanced distributed systems design</div>
+                    <div class="exam-meta">
+                        <span class="exam-meta-item">📚 Coming soon</span>
+                        <span class="exam-meta-item">⏱️ 180 min exam</span>
+                        <span class="exam-meta-item">
+                            Level: 
+                            <span class="level-dots">
+                                <span class="level-dot filled"></span>
+                                <span class="level-dot filled"></span>
+                                <span class="level-dot filled"></span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <span class="exam-badge coming">Coming Soon</span>
+                <span class="exam-arrow">→</span>
+            </a>
+            
+            <!-- CLF-C02 -->
+            <a href="study-mode.html" class="exam-item">
+                <div class="exam-code">
+                    <span>CLF<br>C02</span>
+                </div>
+                <div class="exam-info">
+                    <div class="exam-name">Cloud Practitioner</div>
+                    <div class="exam-desc">AWS Cloud fundamentals</div>
+                    <div class="exam-meta">
+                        <span class="exam-meta-item">📚 198 questions</span>
+                        <span class="exam-meta-item">⏱️ 90 min exam</span>
+                        <span class="exam-meta-item">
+                            Level: 
+                            <span class="level-dots">
+                                <span class="level-dot filled"></span>
+                                <span class="level-dot"></span>
+                                <span class="level-dot"></span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <span class="exam-badge available">✓ Available</span>
+                <span class="exam-arrow">→</span>
+            </a>
+        </div>
+    </main>
+</body>
+</html>

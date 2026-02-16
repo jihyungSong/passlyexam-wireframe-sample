@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - PasslyExam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0 24px;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+        
+        /* Main Content */
+        .main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+        
+        /* Result Header */
+        .result-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .result-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        
+        .result-icon.warning {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+        }
+        
+        .result-icon.fail {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+        }
+        
+        .result-header h1 {
+            font-size: 32px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .result-header p {
+            font-size: 16px;
+            color: #6b7280;
+        }
+        
+        .exam-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #fff3e0;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .exam-badge img {
+            height: 20px;
+            width: auto;
+        }
+        
+        .exam-badge span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e65100;
+        }
+        
+        /* Score Card */
+        .score-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+        
+        .score-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .score-circle {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: conic-gradient(#22c55e 0% 72%, #e5e7eb 72% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .score-circle::before {
+            content: '';
+            width: 130px;
+            height: 130px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .score-value {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .score-value .number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #22c55e;
+            line-height: 1;
+        }
+        
+        .score-value .label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+        
+        .score-details {
+            text-align: left;
+        }
+        
+        .score-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .score-detail-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .detail-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .detail-icon.correct { background: #dcfce7; }
+        .detail-icon.incorrect { background: #fee2e2; }
+        .detail-icon.skipped { background: #f3f4f6; }
+        
+        .detail-info .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+        
+        .detail-info .label {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+        
+        /* Pass Prediction */
+        .pass-prediction {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: #f0fdf4;
+            border-radius: 12px;
+            border: 1px solid #bbf7d0;
+        }
+        
+        .pass-prediction.warning {
+            background: #fefce8;
+            border-color: #fde047;
+        }
+        
+        .pass-prediction.fail {
+            background: #fef2f2;
+            border-color: #fecaca;
+        }
+        
+        .prediction-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .prediction-text span:first-child {
+            font-size: 24px;
+        }
+        
+        .prediction-text strong {
+            font-size: 18px;
+            color: #16a34a;
+        }
+        
+        .prediction-text.warning strong { color: #ca8a04; }
+        .prediction-text.fail strong { color: #dc2626; }
+        
+        .prediction-score {
+            font-size: 32px;
+            font-weight: 700;
+            color: #16a34a;
+        }
+        
+        .pass-prediction.warning .prediction-score { color: #ca8a04; }
+        .pass-prediction.fail .prediction-score { color: #dc2626; }
+        
+        /* Domain Analysis */
+        .domain-analysis {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .domain-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .domain-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .domain-name {
+            width: 180px;
+            font-size: 14px;
+            color: #374151;
+            flex-shrink: 0;
+        }
+        
+        .domain-bar {
+            flex: 1;
+            height: 24px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .domain-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.5s;
+        }
+        
+        .domain-fill.high { background: linear-gradient(90deg, #22c55e, #16a34a); }
+        .domain-fill.medium { background: linear-gradient(90deg, #eab308, #ca8a04); }
+        .domain-fill.low { background: linear-gradient(90deg, #ef4444, #dc2626); }
+        
+        .domain-score {
+            width: 50px;
+            text-align: right;
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .domain-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .domain-badge.weak {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        /* AI Recommendation */
+        .ai-recommendation {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+        
+        .ai-content {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .ai-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        
+        .ai-text {
+            flex: 1;
+        }
+        
+        .ai-text h3 {
+            font-size: 16px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .ai-text p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #4b5563;
+        }
+        
+        .ai-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        
+        .ai-topic {
+            padding: 6px 12px;
+            background: #fef3c7;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #b45309;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+        
+        .btn-secondary:hover {
+            background: #f3f4f6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .score-main {
+                flex-direction: column;
+                gap: 24px;
+            }
+            
+            .domain-item {
+                flex-wrap: wrap;
+            }
+            
+            .domain-name {
+                width: 100%;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                min-width: auto;
+            }
+        }
+        
+        /* Navigation for wireframe */
+        .wireframe-nav {
+            background: #1f2937;
+            padding: 12px 24px;
+        }
+        
+        .wireframe-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .wireframe-nav span {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+        
+        .wireframe-nav a {
+            color: #60a5fa;
+            font-size: 13px;
+            text-decoration: none;
+        }
+        
+        .wireframe-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .wireframe-nav a.active {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Wireframe Navigation -->
+    <nav class="wireframe-nav">
+        <div class="wireframe-nav-content">
+            <span>📐 Wireframe:</span>
+            <a href="index.html">Landing</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="exam-select.html">Exam Select</a>
+            <a href="study-mode.html">Study Mode</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="result.html" class="active">Result</a>
+        </div>
+    </nav>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="dashboard.html" class="logo">
+                <div class="logo-icon">P</div>
+                <span class="logo-text">PasslyExam</span>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Result Header -->
+        <div class="result-header">
+            <div class="exam-badge">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
+                <span>AWS SAA-C03 Mock Exam</span>
+            </div>
+            <div class="result-icon">🎉</div>
+            <h1>Great Progress!</h1>
+            <p>You're on the right track. Keep practicing to improve your score.</p>
+        </div>
+        
+        <!-- Score Card -->
+        <div class="score-card">
+            <div class="score-main">
+                <div class="score-circle">
+                    <div class="score-value">
+                        <div class="number">72%</div>
+                        <div class="label">Score</div>
+                    </div>
+                </div>
+                
+                <div class="score-details">
+                    <div class="score-detail-item">
+                        <div class="detail-icon correct">✓</div>
+                        <div class="detail-info">
+                            <div class="value">47</div>
+                            <div class="label">Correct Answers</div>
+                        </div>
+                    </div>
+                    <div class="score-detail-item">
+                        <div class="detail-icon incorrect">✕</div>
+                        <div class="detail-info">
+                            <div class="value">15</div>
+                            <div class="label">Incorrect Answers</div>
+                        </div>
+                    </div>
+                    <div class="score-detail-item">
+                        <div class="detail-icon skipped">–</div>
+                        <div class="detail-info">
+                            <div class="value">3</div>
+                            <div class="label">Skipped</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pass-prediction warning">
+                <div class="prediction-text warning">
+                    <span>⚠️</span>
+                    <strong>Borderline - More Practice Recommended</strong>
+                </div>
+                <div class="prediction-score">78%</div>
+            </div>
+        </div>
+        
+        <!-- Domain Analysis -->
+        <div class="domain-analysis">
+            <h2 class="section-title">📊 Domain Analysis</h2>
+            
+            <div class="domain-list">
+                <div class="domain-item">
+                    <span class="domain-name">Design Secure Architectures</span>
+                    <div class="domain-bar">
+                        <div class="domain-fill high" style="width: 85%"></div>
+                    </div>
+                    <span class="domain-score">85%</span>
+                </div>
+                
+                <div class="domain-item">
+                    <span class="domain-name">Design Resilient Architectures</span>
+                    <div class="domain-bar">
+                        <div class="domain-fill high" style="width: 78%"></div>
+                    </div>
+                    <span class="domain-score">78%</span>
+                </div>
+                
+                <div class="domain-item">
+                    <span class="domain-name">Design High-Performing Arch.</span>
+                    <div class="domain-bar">
+                        <div class="domain-fill medium" style="width: 68%"></div>
+                    </div>
+                    <span class="domain-score">68%</span>
+                </div>
+                
+                <div class="domain-item">
+                    <span class="domain-name">Design Cost-Optimized Arch.</span>
+                    <div class="domain-bar">
+                        <div class="domain-fill low" style="width: 45%"></div>
+                    </div>
+                    <span class="domain-score">45%</span>
+                    <span class="domain-badge weak">⚠️ Weak</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Recommendation -->
+        <div class="ai-recommendation">
+            <h2 class="section-title">🤖 AI Recommendations</h2>
+            
+            <div class="ai-content">
+                <div class="ai-icon">💡</div>
+                <div class="ai-text">
+                    <h3>Focus on Cost Optimization</h3>
+                    <p>
+                        Your cost optimization domain score is significantly below the passing threshold. 
+                        I recommend focusing on understanding the pricing models for EC2 (Reserved Instances, Savings Plans, Spot Instances) 
+                        and S3 storage classes. Pay special attention to when to use each pricing option.
+                    </p>
+                    <div class="ai-topics">
+                        <span class="ai-topic">📌 EC2 Pricing Models</span>
+                        <span class="ai-topic">📌 S3 Storage Classes</span>
+                        <span class="ai-topic">📌 Reserved vs On-Demand</span>
+                        <span class="ai-topic">📌 Cost Explorer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="quiz.html" class="btn btn-primary">
+                🔄 Review Incorrect Answers
+            </a>
+            <a href="study-mode.html" class="btn btn-secondary">
+                📚 Practice Weak Areas
+            </a>
+            <a href="dashboard.html" class="btn btn-secondary">
+                🏠 Back to Dashboard
+            </a>
+        </div>
+    </main>
+</body>
+</html>

@@ -18,6 +18,41 @@
             background: #f5f5f5;
         }
         
+        /* Wireframe Navigation */
+        .wireframe-nav {
+            background: #1f2937;
+            padding: 12px 24px;
+        }
+        
+        .wireframe-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .wireframe-nav span {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+        
+        .wireframe-nav a {
+            color: #60a5fa;
+            font-size: 13px;
+            text-decoration: none;
+        }
+        
+        .wireframe-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .wireframe-nav a.active {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+        
         /* Header */
         .header {
             background: white;
@@ -745,6 +780,19 @@
     </style>
 </head>
 <body>
+    <!-- Wireframe Navigation -->
+    <nav class="wireframe-nav">
+        <div class="wireframe-nav-content">
+            <span>📐 Wireframe:</span>
+            <a href="index.html" class="active">Landing</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="exam-select.html">Exam Select</a>
+            <a href="study-mode.html">Study Mode</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="result.html">Result</a>
+        </div>
+    </nav>
+    
     <!-- Header -->
     <header class="header">
         <div class="logo">

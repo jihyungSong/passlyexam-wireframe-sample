@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - PasslyExam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+        }
+        
+        /* Quiz Header */
+        .quiz-header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 12px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .quiz-header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .quiz-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .quiz-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: #fff3e0;
+            border-radius: 6px;
+        }
+        
+        .quiz-badge img {
+            height: 16px;
+            width: auto;
+        }
+        
+        .quiz-badge span {
+            font-size: 13px;
+            font-weight: 600;
+            color: #e65100;
+        }
+        
+        .quiz-mode {
+            padding: 6px 12px;
+            background: #dbeafe;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #2563eb;
+        }
+        
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .progress-text {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #fef3c7;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #b45309;
+        }
+        
+        .btn-quit {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-quit:hover {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        
+        /* Progress Bar */
+        .progress-bar-container {
+            background: white;
+            padding: 8px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .progress-bar-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+        
+        /* Main Content */
+        .main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+        
+        /* Question Card */
+        .question-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .question-header {
+            padding: 20px 24px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .question-number {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .question-number strong {
+            color: #111827;
+            font-size: 16px;
+        }
+        
+        .question-tags {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .question-tag {
+            padding: 4px 10px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+        
+        .question-body {
+            padding: 32px 24px;
+        }
+        
+        .question-text {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #111827;
+            margin-bottom: 28px;
+        }
+        
+        /* Answer Options */
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .answer-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 20px;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .answer-option:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+        
+        .answer-option.selected {
+            border-color: #2563eb;
+            background: #dbeafe;
+        }
+        
+        .answer-option.correct {
+            border-color: #22c55e;
+            background: #dcfce7;
+        }
+        
+        .answer-option.incorrect {
+            border-color: #ef4444;
+            background: #fee2e2;
+        }
+        
+        .answer-letter {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #374151;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+        
+        .answer-option.selected .answer-letter {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: white;
+        }
+        
+        .answer-option.correct .answer-letter {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: white;
+        }
+        
+        .answer-option.incorrect .answer-letter {
+            background: #ef4444;
+            border-color: #ef4444;
+            color: white;
+        }
+        
+        .answer-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #374151;
+            padding-top: 4px;
+        }
+        
+        /* Explanation */
+        .explanation {
+            margin-top: 24px;
+            padding: 20px;
+            background: #f0fdf4;
+            border-radius: 12px;
+            border-left: 4px solid #22c55e;
+        }
+        
+        .explanation-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #16a34a;
+            margin-bottom: 12px;
+        }
+        
+        .explanation-text {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #374151;
+        }
+        
+        /* Navigation */
+        .quiz-nav {
+            padding: 20px 24px;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-nav:hover {
+            background: #f3f4f6;
+        }
+        
+        .btn-nav:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-submit {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #2563eb;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-submit:hover {
+            background: #1d4ed8;
+        }
+        
+        .btn-next {
+            background: #22c55e;
+        }
+        
+        .btn-next:hover {
+            background: #16a34a;
+        }
+        
+        /* Flag button */
+        .btn-flag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-flag:hover {
+            background: #fef3c7;
+            border-color: #f59e0b;
+            color: #b45309;
+        }
+        
+        .btn-flag.flagged {
+            background: #fef3c7;
+            border-color: #f59e0b;
+            color: #b45309;
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .quiz-header-content {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            .quiz-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .quiz-progress {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .quiz-nav {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            .btn-nav, .btn-submit {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+        
+        /* Navigation for wireframe */
+        .wireframe-nav {
+            background: #1f2937;
+            padding: 12px 24px;
+        }
+        
+        .wireframe-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .wireframe-nav span {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+        
+        .wireframe-nav a {
+            color: #60a5fa;
+            font-size: 13px;
+            text-decoration: none;
+        }
+        
+        .wireframe-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .wireframe-nav a.active {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Wireframe Navigation -->
+    <nav class="wireframe-nav">
+        <div class="wireframe-nav-content">
+            <span>📐 Wireframe:</span>
+            <a href="index.html">Landing</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="exam-select.html">Exam Select</a>
+            <a href="study-mode.html">Study Mode</a>
+            <a href="quiz.html" class="active">Quiz</a>
+            <a href="result.html">Result</a>
+        </div>
+    </nav>
+    
+    <!-- Quiz Header -->
+    <header class="quiz-header">
+        <div class="quiz-header-content">
+            <div class="quiz-info">
+                <div class="quiz-badge">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
+                    <span>SAA-C03</span>
+                </div>
+                <div class="quiz-mode">Practice Mode</div>
+            </div>
+            <div class="quiz-progress">
+                <span class="progress-text">Question <strong>12</strong> of <strong>65</strong></span>
+                <div class="timer">⏱️ 1:45:30</div>
+                <button class="btn-quit">Exit</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+        <div class="progress-bar-inner">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 18%"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="main">
+        <div class="question-card">
+            <div class="question-header">
+                <div class="question-number">Question <strong>12</strong></div>
+                <div class="question-tags">
+                    <span class="question-tag">Storage</span>
+                    <span class="question-tag">S3</span>
+                </div>
+            </div>
+            
+            <div class="question-body">
+                <p class="question-text">
+                    A company needs to store 10TB of archival data that will be accessed very infrequently (perhaps once or twice a year). When the data is accessed, it must be retrieved within 12 hours. The company wants to minimize storage costs.
+                    <br><br>
+                    Which S3 storage class should the solutions architect recommend?
+                </p>
+                
+                <div class="answer-options">
+                    <div class="answer-option">
+                        <span class="answer-letter">A</span>
+                        <span class="answer-text">S3 Standard</span>
+                    </div>
+                    <div class="answer-option selected">
+                        <span class="answer-letter">B</span>
+                        <span class="answer-text">S3 Glacier Instant Retrieval</span>
+                    </div>
+                    <div class="answer-option correct">
+                        <span class="answer-letter">C</span>
+                        <span class="answer-text">S3 Glacier Deep Archive</span>
+                    </div>
+                    <div class="answer-option">
+                        <span class="answer-letter">D</span>
+                        <span class="answer-text">S3 One Zone-Infrequent Access</span>
+                    </div>
+                </div>
+                
+                <!-- Explanation (shown after answer) -->
+                <div class="explanation">
+                    <div class="explanation-title">
+                        💡 Explanation
+                    </div>
+                    <p class="explanation-text">
+                        <strong>S3 Glacier Deep Archive</strong> is the correct answer because:
+                        <br><br>
+                        • It's the lowest-cost storage class, designed for data that is rarely accessed
+                        <br>• Retrieval time is within 12 hours (standard retrieval), which meets the requirement
+                        <br>• Perfect for archival data accessed once or twice per year
+                        <br><br>
+                        <strong>Why not B (Glacier Instant Retrieval)?</strong> While it provides millisecond retrieval, it costs more than Deep Archive. Since 12-hour retrieval is acceptable, Deep Archive is more cost-effective.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="quiz-nav">
+                <button class="btn-nav">← Previous</button>
+                <button class="btn-flag">🚩 Flag for Review</button>
+                <button class="btn-submit btn-next">Next Question →</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
