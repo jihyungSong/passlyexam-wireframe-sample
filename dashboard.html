@@ -273,217 +273,6 @@
             font-size: 16px;
         }
         
-        /* Recent Activity Timeline */
-        .recent-activity {
-            margin-bottom: 40px;
-        }
-        
-        .activity-timeline {
-            position: relative;
-            padding-left: 32px;
-        }
-        
-        .activity-timeline::before {
-            content: '';
-            position: absolute;
-            left: 11px;
-            top: 8px;
-            bottom: 8px;
-            width: 2px;
-            background: #e5e7eb;
-        }
-        
-        .activity-item {
-            position: relative;
-            padding: 16px 20px;
-            background: white;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            border: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.2s;
-        }
-        
-        .activity-item:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transform: translateX(4px);
-        }
-        
-        .activity-item:last-child {
-            margin-bottom: 0;
-        }
-        
-        .activity-dot {
-            position: absolute;
-            left: -32px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            z-index: 1;
-        }
-        
-        .activity-dot.mock {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-        }
-        
-        .activity-dot.practice {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-        }
-        
-        .activity-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        
-        .activity-icon.aws { background: #fff3e0; }
-        .activity-icon.azure { background: #e3f2fd; }
-        .activity-icon.gcp { background: #fce4ec; }
-        
-        .activity-icon img {
-            height: 24px;
-            width: auto;
-        }
-        
-        .activity-content {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .activity-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .activity-type-badge {
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-        
-        .activity-type-badge.mock {
-            background: #f3e8ff;
-            color: #7c3aed;
-        }
-        
-        .activity-type-badge.practice {
-            background: #dbeafe;
-            color: #2563eb;
-        }
-        
-        .activity-subtitle {
-            font-size: 13px;
-            color: #6b7280;
-        }
-        
-        .activity-meta {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-shrink: 0;
-        }
-        
-        .activity-score {
-            text-align: center;
-        }
-        
-        .activity-score-value {
-            font-size: 20px;
-            font-weight: 700;
-        }
-        
-        .activity-score-value.pass { color: #22c55e; }
-        .activity-score-value.fail { color: #ef4444; }
-        .activity-score-value.neutral { color: #3b82f6; }
-        
-        .activity-score-label {
-            font-size: 11px;
-            color: #9ca3af;
-            text-transform: uppercase;
-        }
-        
-        .activity-time {
-            font-size: 13px;
-            color: #9ca3af;
-            white-space: nowrap;
-            min-width: 80px;
-            text-align: right;
-        }
-        
-        .activity-link {
-            padding: 8px 16px;
-            background: #f3f4f6;
-            color: #374151;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        
-        .activity-link:hover {
-            background: #e5e7eb;
-            color: #111827;
-        }
-        
-        .activity-date-divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 20px 0 16px 0;
-            color: #9ca3af;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        
-        .activity-date-divider::before,
-        .activity-date-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e5e7eb;
-        }
-        
-        .view-all-activity {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px;
-            margin-top: 16px;
-            color: #6b7280;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-        
-        .view-all-activity:hover {
-            background: #f3f4f6;
-            color: #2563eb;
-        }
-        
         /* Section Title */
         .section-title {
             display: flex;
@@ -825,6 +614,228 @@
         .btn-new-exam.disabled:hover {
             background: white;
             color: #6b7280;
+        }
+        
+        /* Mock Exam Progress Section */
+        .mock-progress-section {
+            margin-bottom: 40px;
+        }
+        
+        .mock-progress-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .mock-progress-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .mock-progress-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .mock-progress-title h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .exam-filter-tabs {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .exam-filter-tab {
+            padding: 6px 12px;
+            background: #f3f4f6;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .exam-filter-tab:hover {
+            background: #e5e7eb;
+        }
+        
+        .exam-filter-tab.active {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 200px;
+            margin-bottom: 16px;
+        }
+        
+        .chart-grid {
+            position: absolute;
+            top: 0;
+            left: 40px;
+            right: 0;
+            bottom: 30px;
+            border-left: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .chart-grid-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            border-top: 1px dashed #e5e7eb;
+        }
+        
+        .chart-grid-line.passing {
+            border-top: 2px dashed #22c55e;
+        }
+        
+        .chart-y-label {
+            position: absolute;
+            left: 0;
+            width: 35px;
+            text-align: right;
+            font-size: 11px;
+            color: #9ca3af;
+            transform: translateY(-50%);
+        }
+        
+        .chart-x-labels {
+            position: absolute;
+            bottom: 0;
+            left: 40px;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 10px 0;
+        }
+        
+        .chart-x-label {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+        
+        .chart-line {
+            position: absolute;
+            top: 0;
+            left: 40px;
+            right: 0;
+            bottom: 30px;
+        }
+        
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .chart-path {
+            fill: none;
+            stroke: #2563eb;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .chart-area {
+            fill: url(#chartGradient);
+            opacity: 0.3;
+        }
+        
+        .chart-dot {
+            fill: #2563eb;
+            stroke: white;
+            stroke-width: 2;
+        }
+        
+        .chart-dot:hover {
+            r: 8;
+            cursor: pointer;
+        }
+        
+        .passing-label {
+            position: absolute;
+            right: 8px;
+            background: #dcfce7;
+            color: #16a34a;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .chart-stats {
+            display: flex;
+            gap: 32px;
+            padding-top: 16px;
+            border-top: 1px solid #f3f4f6;
+        }
+        
+        .chart-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .chart-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+        
+        .chart-stat-value.green { color: #22c55e; }
+        .chart-stat-value.blue { color: #2563eb; }
+        .chart-stat-value.yellow { color: #eab308; }
+        
+        .chart-stat-label {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+        
+        .chart-stat-change {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .chart-stat-change.up { color: #22c55e; }
+        .chart-stat-change.down { color: #ef4444; }
+        
+        .mock-empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #9ca3af;
+        }
+        
+        .mock-empty-state p {
+            margin-bottom: 16px;
+        }
+        
+        .btn-take-mock {
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-take-mock:hover {
+            background: #1d4ed8;
         }
         
         /* Completed Section */
@@ -1307,7 +1318,6 @@
             <a href="study-mode.html">Study Mode</a>
             <a href="quiz.html">Quiz</a>
             <a href="result.html">Result</a>
-            <a href="mock-history.html">Mock History</a>
             
             <div class="plan-toggle">
                 <button class="plan-toggle-btn free active" onclick="setPlan('free')">Free</button>
@@ -1374,134 +1384,6 @@
             <h1>Welcome back, JH! 👋</h1>
             <p>Continue your certification journey</p>
         </div>
-        
-        <!-- Recent Activity Section -->
-        <section class="recent-activity">
-            <div class="section-title">
-                <h2>⏱️ Recent Activity</h2>
-                <span class="section-subtitle">Your learning timeline</span>
-            </div>
-            
-            <div class="activity-timeline">
-                <!-- Today -->
-                <div class="activity-item">
-                    <span class="activity-dot mock">📝</span>
-                    <div class="activity-icon aws">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">
-                            Mock Exam Completed
-                            <span class="activity-type-badge mock">Mock</span>
-                        </div>
-                        <div class="activity-subtitle">AWS Solutions Architect Associate • 65 questions</div>
-                    </div>
-                    <div class="activity-meta">
-                        <div class="activity-score">
-                            <div class="activity-score-value pass">78%</div>
-                            <div class="activity-score-label">Score</div>
-                        </div>
-                        <span class="activity-time">2 hours ago</span>
-                        <a href="mock-history.html" class="activity-link">Review</a>
-                    </div>
-                </div>
-                
-                <div class="activity-item">
-                    <span class="activity-dot practice">📖</span>
-                    <div class="activity-icon aws">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">
-                            Practice Session
-                            <span class="activity-type-badge practice">Practice</span>
-                        </div>
-                        <div class="activity-subtitle">AWS Solutions Architect Associate • 25 questions</div>
-                    </div>
-                    <div class="activity-meta">
-                        <div class="activity-score">
-                            <div class="activity-score-value pass">84%</div>
-                            <div class="activity-score-label">Accuracy</div>
-                        </div>
-                        <span class="activity-time">5 hours ago</span>
-                    </div>
-                </div>
-                
-                <!-- Yesterday -->
-                <div class="activity-date-divider">Yesterday</div>
-                
-                <div class="activity-item">
-                    <span class="activity-dot practice">📖</span>
-                    <div class="activity-icon azure">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure">
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">
-                            Practice Session
-                            <span class="activity-type-badge practice">Practice</span>
-                        </div>
-                        <div class="activity-subtitle">Azure Administrator Associate • 15 questions</div>
-                    </div>
-                    <div class="activity-meta">
-                        <div class="activity-score">
-                            <div class="activity-score-value neutral">67%</div>
-                            <div class="activity-score-label">Accuracy</div>
-                        </div>
-                        <span class="activity-time">Yesterday</span>
-                    </div>
-                </div>
-                
-                <div class="activity-item">
-                    <span class="activity-dot mock">📝</span>
-                    <div class="activity-icon aws">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">
-                            Mock Exam Completed
-                            <span class="activity-type-badge mock">Mock</span>
-                        </div>
-                        <div class="activity-subtitle">AWS Solutions Architect Associate • 65 questions</div>
-                    </div>
-                    <div class="activity-meta">
-                        <div class="activity-score">
-                            <div class="activity-score-value fail">62%</div>
-                            <div class="activity-score-label">Score</div>
-                        </div>
-                        <span class="activity-time">Yesterday</span>
-                        <a href="mock-history.html" class="activity-link">Review</a>
-                    </div>
-                </div>
-                
-                <!-- Earlier -->
-                <div class="activity-date-divider">Feb 16, 2026</div>
-                
-                <div class="activity-item">
-                    <span class="activity-dot practice">📖</span>
-                    <div class="activity-icon aws">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">
-                            Practice Session
-                            <span class="activity-type-badge practice">Practice</span>
-                        </div>
-                        <div class="activity-subtitle">AWS Solutions Architect Associate • 30 questions</div>
-                    </div>
-                    <div class="activity-meta">
-                        <div class="activity-score">
-                            <div class="activity-score-value pass">76%</div>
-                            <div class="activity-score-label">Accuracy</div>
-                        </div>
-                        <span class="activity-time">Feb 16</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="view-all-activity" onclick="alert('View all activity - coming soon!')">
-                View all activity →
-            </div>
-        </section>
         
         <!-- My Learning Section (in_progress) -->
         <section class="my-learning">
@@ -1646,6 +1528,114 @@
                     <span style="font-size: 20px;">+</span>
                     <span id="newExamText">Start a new certification</span>
                 </button>
+            </div>
+        </section>
+        
+        <!-- Mock Exam Progress Section (Pro only) -->
+        <section class="mock-progress-section" id="mockProgressSection">
+            <div class="section-title">
+                <h2>📈 Mock Exam Progress</h2>
+                <span class="pro-only-badge" id="mockProBadge">PRO</span>
+            </div>
+            
+            <div class="mock-progress-card">
+                <div class="mock-progress-header">
+                    <div class="mock-progress-title">
+                        <h3>Score Trend</h3>
+                    </div>
+                    <div class="exam-filter-tabs">
+                        <button class="exam-filter-tab active">AWS SAA</button>
+                        <button class="exam-filter-tab">Azure AZ-104</button>
+                        <button class="exam-filter-tab">All</button>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <!-- Y-axis labels -->
+                    <span class="chart-y-label" style="top: 0%;">100%</span>
+                    <span class="chart-y-label" style="top: 28%;">72%</span>
+                    <span class="chart-y-label" style="top: 50%;">50%</span>
+                    <span class="chart-y-label" style="top: 100%;">0%</span>
+                    
+                    <!-- Grid -->
+                    <div class="chart-grid">
+                        <div class="chart-grid-line" style="top: 0%;"></div>
+                        <div class="chart-grid-line passing" style="top: 28%;">
+                            <span class="passing-label">Pass: 72%</span>
+                        </div>
+                        <div class="chart-grid-line" style="top: 50%;"></div>
+                    </div>
+                    
+                    <!-- Chart Line (SVG) -->
+                    <div class="chart-line">
+                        <svg class="chart-svg" viewBox="0 0 400 140" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#2563eb" stop-opacity="0.3"/>
+                                    <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Area fill -->
+                            <path class="chart-area" d="M 20 98 L 80 84 L 140 70 L 200 56 L 260 42 L 320 35 L 380 28 L 380 140 L 20 140 Z"/>
+                            <!-- Line -->
+                            <path class="chart-path" d="M 20 98 L 80 84 L 140 70 L 200 56 L 260 42 L 320 35 L 380 28"/>
+                            <!-- Dots -->
+                            <circle class="chart-dot" cx="20" cy="98" r="5"/>
+                            <circle class="chart-dot" cx="80" cy="84" r="5"/>
+                            <circle class="chart-dot" cx="140" cy="70" r="5"/>
+                            <circle class="chart-dot" cx="200" cy="56" r="5"/>
+                            <circle class="chart-dot" cx="260" cy="42" r="5"/>
+                            <circle class="chart-dot" cx="320" cy="35" r="5"/>
+                            <circle class="chart-dot" cx="380" cy="28" r="6" fill="#22c55e" stroke="white"/>
+                        </svg>
+                    </div>
+                    
+                    <!-- X-axis labels -->
+                    <div class="chart-x-labels">
+                        <span class="chart-x-label">Jan 20</span>
+                        <span class="chart-x-label">Jan 27</span>
+                        <span class="chart-x-label">Feb 3</span>
+                        <span class="chart-x-label">Feb 8</span>
+                        <span class="chart-x-label">Feb 12</span>
+                        <span class="chart-x-label">Feb 16</span>
+                        <span class="chart-x-label">Today</span>
+                    </div>
+                </div>
+                
+                <div class="chart-stats">
+                    <div class="chart-stat">
+                        <span class="chart-stat-value green">80%</span>
+                        <span class="chart-stat-label">Latest Score</span>
+                        <span class="chart-stat-change up">↑ 5% from last</span>
+                    </div>
+                    <div class="chart-stat">
+                        <span class="chart-stat-value blue">71%</span>
+                        <span class="chart-stat-label">Average Score</span>
+                    </div>
+                    <div class="chart-stat">
+                        <span class="chart-stat-value">7</span>
+                        <span class="chart-stat-label">Mock Exams Taken</span>
+                    </div>
+                    <div class="chart-stat">
+                        <span class="chart-stat-value green">4</span>
+                        <span class="chart-stat-label">Passed (72%+)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Mock Progress Empty State (for Free or no mock exams) -->
+        <section class="mock-progress-section" id="mockProgressEmpty" style="display: none;">
+            <div class="section-title">
+                <h2>📈 Mock Exam Progress</h2>
+                <span class="pro-only-badge" id="mockProBadge2">PRO</span>
+            </div>
+            
+            <div class="mock-progress-card">
+                <div class="mock-empty-state">
+                    <p>📝 No mock exams taken yet</p>
+                    <a href="study-mode.html" class="btn-take-mock">Take Your First Mock Exam</a>
+                </div>
             </div>
         </section>
         
@@ -1855,6 +1845,17 @@
             document.querySelectorAll('.pro-only-badge').forEach(el => {
                 el.classList.toggle('hidden', plan === 'pro');
             });
+            
+            // Mock Progress section - only show chart for Pro
+            const mockProgress = document.getElementById('mockProgressSection');
+            const mockEmpty = document.getElementById('mockProgressEmpty');
+            if (plan === 'pro') {
+                mockProgress.style.display = 'block';
+                mockEmpty.style.display = 'none';
+            } else {
+                mockProgress.style.display = 'none';
+                mockEmpty.style.display = 'none'; // Hide both for Free (mock is Pro only)
+            }
             
             // Lock icons on exam cards
             const lockIds = ['azureLock', 'gcpLock', 'linuxLock', 'securityLock'];
