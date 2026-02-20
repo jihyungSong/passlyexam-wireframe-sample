@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Exam Result Detail - Wireframe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center gap-4">
+          <a href="mock-history-v2.html" class="text-gray-500 hover:text-gray-700">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </a>
+          <h1 class="text-lg font-semibold text-gray-900">Exam Result</h1>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-gray-500">Feb 19, 2026</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+    
+    <!-- Result Hero -->
+    <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-8 text-white mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-4xl">🎉</span>
+            <div>
+              <p class="text-green-100 text-sm font-medium">AWS SAA-C03</p>
+              <h1 class="text-2xl font-bold">Congratulations! You Passed!</h1>
+            </div>
+          </div>
+          <p class="text-green-100 mt-2">Attempt #5 • February 19, 2026</p>
+        </div>
+        <div class="text-right">
+          <p class="text-6xl font-bold">820</p>
+          <p class="text-green-100">out of 1000</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white rounded-xl border border-gray-200 p-4 text-center">
+        <p class="text-2xl font-bold text-green-600">52/65</p>
+        <p class="text-sm text-gray-500">Correct Answers</p>
+      </div>
+      <div class="bg-white rounded-xl border border-gray-200 p-4 text-center">
+        <p class="text-2xl font-bold text-blue-600">80%</p>
+        <p class="text-sm text-gray-500">Accuracy</p>
+      </div>
+      <div class="bg-white rounded-xl border border-gray-200 p-4 text-center">
+        <p class="text-2xl font-bold text-purple-600">48m</p>
+        <p class="text-sm text-gray-500">Time Spent</p>
+      </div>
+      <div class="bg-white rounded-xl border border-gray-200 p-4 text-center">
+        <p class="text-2xl font-bold text-orange-600">+70</p>
+        <p class="text-sm text-gray-500">vs Last Attempt</p>
+      </div>
+    </div>
+
+    <!-- AI Coach Analysis -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 mb-6">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl flex items-center justify-center">
+          <span class="text-white text-lg">✨</span>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold text-gray-900">AI Coach Analysis</h2>
+          <p class="text-sm text-gray-500">Personalized feedback based on your performance</p>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-5 border border-purple-100">
+        <div class="prose prose-sm max-w-none text-gray-700">
+          <p class="mb-3">
+            <strong>Great job on passing the AWS SAA-C03!</strong> 🎉 Your score of 820 shows solid understanding of AWS core services.
+          </p>
+          
+          <p class="mb-3">
+            <strong>Strengths:</strong>
+          </p>
+          <ul class="mb-3 space-y-1">
+            <li>✅ Excellent grasp of <strong>EC2 and VPC networking</strong> (95% accuracy)</li>
+            <li>✅ Strong understanding of <strong>S3 storage classes</strong> and lifecycle policies</li>
+            <li>✅ Good knowledge of <strong>IAM best practices</strong></li>
+          </ul>
+          
+          <p class="mb-3">
+            <strong>Areas to Review:</strong>
+          </p>
+          <ul class="mb-3 space-y-1">
+            <li>⚠️ <strong>Database services</strong> (RDS, DynamoDB, Aurora) - 65% accuracy</li>
+            <li>⚠️ <strong>Serverless architectures</strong> (Lambda, API Gateway) - 70% accuracy</li>
+            <li>⚠️ Consider reviewing <strong>cost optimization</strong> strategies</li>
+          </ul>
+          
+          <p>
+            <strong>Next Steps:</strong> Focus on database services for your next attempt or if pursuing AWS Database Specialty. Overall, you're well-prepared for the real exam!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Domain Performance -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 mb-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Performance by Domain</h2>
+      
+      <div class="space-y-4">
+        <!-- Domain 1 - Strong -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm font-medium text-gray-700">Design Resilient Architectures</span>
+            <span class="text-sm font-bold text-green-600">92%</span>
+          </div>
+          <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+            <div class="h-full bg-green-500 rounded-full" style="width: 92%"></div>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">12/13 correct</p>
+        </div>
+
+        <!-- Domain 2 - Strong -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm font-medium text-gray-700">Design High-Performing Architectures</span>
+            <span class="text-sm font-bold text-green-600">85%</span>
+          </div>
+          <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+            <div class="h-full bg-green-500 rounded-full" style="width: 85%"></div>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">17/20 correct</p>
+        </div>
+
+        <!-- Domain 3 - Medium -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm font-medium text-gray-700">Design Secure Applications</span>
+            <span class="text-sm font-bold text-yellow-600">78%</span>
+          </div>
+          <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+            <div class="h-full bg-yellow-500 rounded-full" style="width: 78%"></div>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">14/18 correct</p>
+        </div>
+
+        <!-- Domain 4 - Weak -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm font-medium text-gray-700">Design Cost-Optimized Architectures</span>
+            <span class="text-sm font-bold text-red-500">64%</span>
+          </div>
+          <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+            <div class="h-full bg-red-500 rounded-full" style="width: 64%"></div>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">9/14 correct</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison with Previous -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 mb-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Progress Comparison</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- This Attempt -->
+        <div class="bg-green-50 border border-green-200 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-sm font-medium text-green-700">This Attempt (#5)</span>
+            <span class="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full">PASSED</span>
+          </div>
+          <p class="text-3xl font-bold text-green-600 mb-2">820</p>
+          <div class="text-sm text-green-700 space-y-1">
+            <p>✓ 52/65 correct (80%)</p>
+            <p>✓ 48 minutes</p>
+          </div>
+        </div>
+
+        <!-- Previous Attempt -->
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-sm font-medium text-gray-600">Previous Attempt (#4)</span>
+            <span class="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full">PASSED</span>
+          </div>
+          <p class="text-3xl font-bold text-gray-400 mb-2">750</p>
+          <div class="text-sm text-gray-500 space-y-1">
+            <p>48/65 correct (74%)</p>
+            <p>55 minutes</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Improvement Summary -->
+      <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+        <div class="flex items-center gap-2 text-blue-700">
+          <span class="text-lg">📈</span>
+          <p class="text-sm font-medium">
+            <strong>+70 points improvement!</strong> You answered 4 more questions correctly and finished 7 minutes faster.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question Review Section -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 mb-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-gray-900">Question Review</h2>
+        <div class="flex gap-2">
+          <button class="px-3 py-1 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200">All (65)</button>
+          <button class="px-3 py-1 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100">Incorrect (13)</button>
+          <button class="px-3 py-1 text-sm font-medium text-orange-600 bg-orange-50 rounded-lg hover:bg-orange-100">Flagged (5)</button>
+        </div>
+      </div>
+
+      <!-- Question List -->
+      <div class="space-y-3">
+        
+        <!-- Incorrect Question -->
+        <div class="border border-red-200 rounded-xl p-4 bg-red-50">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xs font-bold">✗</span>
+              <span class="text-sm font-medium text-gray-900">Question 12</span>
+              <span class="px-2 py-0.5 bg-red-100 text-red-600 text-xs rounded-full">Cost Optimization</span>
+            </div>
+            <button class="text-blue-600 text-sm font-medium hover:text-blue-700">View →</button>
+          </div>
+          <p class="text-sm text-gray-700 line-clamp-2">
+            A company wants to reduce costs for their development environment EC2 instances that run from 9 AM to 5 PM on weekdays. Which pricing option would be most cost-effective?
+          </p>
+          <div class="mt-2 text-xs text-gray-500">
+            <span class="text-red-600">Your answer: On-Demand</span> • 
+            <span class="text-green-600">Correct: Scheduled Reserved Instances</span>
+          </div>
+        </div>
+
+        <!-- Incorrect Question with Flag -->
+        <div class="border border-red-200 rounded-xl p-4 bg-red-50">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xs font-bold">✗</span>
+              <span class="text-sm font-medium text-gray-900">Question 24</span>
+              <span class="px-2 py-0.5 bg-red-100 text-red-600 text-xs rounded-full">Database</span>
+              <span class="px-2 py-0.5 bg-orange-100 text-orange-600 text-xs rounded-full">🚩 Flagged</span>
+            </div>
+            <button class="text-blue-600 text-sm font-medium hover:text-blue-700">View →</button>
+          </div>
+          <p class="text-sm text-gray-700 line-clamp-2">
+            A company needs a database solution for their e-commerce application that requires single-digit millisecond latency for read operations. Which AWS service should they use?
+          </p>
+          <div class="mt-2 text-xs text-gray-500">
+            <span class="text-red-600">Your answer: RDS with Read Replicas</span> • 
+            <span class="text-green-600">Correct: DynamoDB DAX</span>
+          </div>
+        </div>
+
+        <!-- Correct Question -->
+        <div class="border border-green-200 rounded-xl p-4 bg-green-50">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span>
+              <span class="text-sm font-medium text-gray-900">Question 1</span>
+              <span class="px-2 py-0.5 bg-green-100 text-green-600 text-xs rounded-full">EC2</span>
+            </div>
+            <button class="text-blue-600 text-sm font-medium hover:text-blue-700">View →</button>
+          </div>
+          <p class="text-sm text-gray-700 line-clamp-2">
+            Which EC2 instance type would be most suitable for a memory-intensive application that processes large datasets in memory?
+          </p>
+        </div>
+
+        <!-- Load More -->
+        <button class="w-full py-3 text-sm font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-xl transition-colors">
+          Load More Questions...
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-3">
+      <a href="mock-history-v2.html" class="flex-1 py-3 px-4 text-center bg-white border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors">
+        ← Back to History
+      </a>
+      <a href="#" class="flex-1 py-3 px-4 text-center bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors">
+        Take Another Mock Exam
+      </a>
+    </div>
+
+  </main>
+
+</body>
+</html>
