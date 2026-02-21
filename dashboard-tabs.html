@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard (Tabs) - PasslyExam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .plan-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .plan-badge.free {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+        
+        .plan-badge.pro {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #7c2d12;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .btn-settings {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            background: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .btn-settings:hover {
+            background: #f3f4f6;
+        }
+        
+        .btn-logout {
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #6b7280;
+            background: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        /* Main */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+        
+        /* Welcome */
+        .welcome {
+            margin-bottom: 24px;
+        }
+        
+        .welcome h1 {
+            font-size: 28px;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .welcome p {
+            color: #6b7280;
+        }
+        
+        /* Exam Tabs Section */
+        .exam-tabs-section {
+            margin-bottom: 24px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Exam Tabs */
+        .exam-tabs-container {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+        
+        .exam-tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            overflow-x: auto;
+        }
+        
+        .exam-tab {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            white-space: nowrap;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .exam-tab:hover {
+            background: #f9fafb;
+            color: #374151;
+        }
+        
+        .exam-tab.active {
+            color: #2563eb;
+            background: #eff6ff;
+        }
+        
+        .exam-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #2563eb;
+        }
+        
+        .exam-tab-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .exam-tab-icon.aws { background: #ff9900; }
+        .exam-tab-icon.azure { background: #0078d4; }
+        .exam-tab-icon.gcp { background: #4285f4; }
+        
+        .exam-tab-icon img {
+            height: 16px;
+            width: auto;
+        }
+        
+        .exam-tab-progress {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #e5e7eb;
+            color: #6b7280;
+        }
+        
+        .exam-tab.active .exam-tab-progress {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        
+        .add-exam-tab {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 16px 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #9ca3af;
+            transition: all 0.2s;
+        }
+        
+        .add-exam-tab:hover {
+            color: #2563eb;
+            background: #f9fafb;
+        }
+        
+        /* Exam Content */
+        .exam-content {
+            padding: 24px;
+        }
+        
+        .exam-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        
+        .exam-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .exam-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .exam-icon.aws { background: #ff9900; }
+        .exam-icon.azure { background: #0078d4; }
+        .exam-icon.gcp { background: #4285f4; }
+        
+        .exam-icon img {
+            height: 32px;
+            width: auto;
+        }
+        
+        .exam-details h2 {
+            font-size: 20px;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .exam-details p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .exam-menu-btn {
+            background: transparent;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .exam-menu-btn:hover {
+            background: #f3f4f6;
+        }
+        
+        /* Progress Section */
+        .progress-section {
+            margin-bottom: 24px;
+        }
+        
+        .progress-bar-container {
+            margin-bottom: 12px;
+        }
+        
+        .progress-bar-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .progress-bar-header span:first-child {
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .progress-bar-header span:last-child {
+            color: #6b7280;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s;
+        }
+        
+        .progress-fill.green { background: linear-gradient(90deg, #22c55e, #16a34a); }
+        .progress-fill.yellow { background: linear-gradient(90deg, #eab308, #ca8a04); }
+        .progress-fill.blue { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+        
+        /* Exam Stats */
+        .exam-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .exam-stat {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .exam-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .exam-stat-value.green { color: #22c55e; }
+        .exam-stat-value.blue { color: #2563eb; }
+        
+        .exam-stat-label {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn-action {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .btn-action.primary {
+            background: #2563eb;
+            color: white;
+            border: none;
+        }
+        
+        .btn-action.primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .btn-action.secondary {
+            background: white;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+        
+        .btn-action.secondary:hover {
+            background: #f3f4f6;
+        }
+        
+        /* Total Stats Section */
+        .total-stats-section {
+            margin-bottom: 24px;
+        }
+        
+        .total-stats-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            padding: 20px 24px;
+        }
+        
+        .total-stats-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .total-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        
+        .total-stat {
+            text-align: center;
+        }
+        
+        .total-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+        }
+        
+        .total-stat-label {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+        
+        /* Ready Banner */
+        .ready-banner {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        
+        .ready-banner.hidden {
+            display: none;
+        }
+        
+        /* Wireframe Nav */
+        .wireframe-nav {
+            background: #1f2937;
+            padding: 12px 24px;
+        }
+        
+        .wireframe-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .wireframe-nav span {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+        
+        .wireframe-nav a {
+            color: #60a5fa;
+            font-size: 13px;
+            text-decoration: none;
+        }
+        
+        .wireframe-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .wireframe-nav a.active {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .exam-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .exam-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .total-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .exam-header {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            background: #f3f4f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+        }
+        
+        .empty-state h3 {
+            font-size: 18px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .empty-state p {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+        
+        .btn-add-first {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .btn-add-first:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Wireframe Nav -->
+    <nav class="wireframe-nav">
+        <div class="wireframe-nav-content">
+            <span>📐 Wireframe:</span>
+            <a href="index.html">Landing</a>
+            <a href="dashboard.html">Dashboard (Old)</a>
+            <a href="dashboard-tabs.html" class="active">Dashboard (Tabs)</a>
+            <a href="exam-select.html">Exam Select</a>
+            <a href="study-mode.html">Study Mode</a>
+        </div>
+    </nav>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">P</div>
+                <span class="logo-text">PasslyExam</span>
+            </a>
+            <div class="header-right">
+                <span class="plan-badge pro">👑 Pro Plan</span>
+                <div class="user-avatar">JH</div>
+                <span class="user-name">JH Song</span>
+                <a href="#" class="btn-settings">⚙️</a>
+                <button class="btn-logout">Logout</button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="main">
+        <!-- Welcome -->
+        <div class="welcome">
+            <h1>Welcome back, JH! 👋</h1>
+            <p>Continue your certification journey</p>
+        </div>
+        
+        <!-- My Learning with Tabs -->
+        <section class="exam-tabs-section">
+            <div class="section-header">
+                <h2 class="section-title">📚 My Learning</h2>
+            </div>
+            
+            <div class="exam-tabs-container">
+                <!-- Tabs -->
+                <div class="exam-tabs">
+                    <button class="exam-tab active" onclick="switchTab('aws')">
+                        <span class="exam-tab-icon aws">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
+                        </span>
+                        <span>AWS SAA-C03</span>
+                        <span class="exam-tab-progress">85%</span>
+                    </button>
+                    <button class="exam-tab" onclick="switchTab('azure')">
+                        <span class="exam-tab-icon azure">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure">
+                        </span>
+                        <span>Azure AZ-104</span>
+                        <span class="exam-tab-progress">35%</span>
+                    </button>
+                    <button class="exam-tab" onclick="switchTab('gcp')">
+                        <span class="exam-tab-icon gcp">
+                            <img src="https://lh3.googleusercontent.com/COxitqgJr1sJnIDe8-jiKhxDx1FrYbtRHKJ9z_hELisAlapwE9LUPh6fcXIfb5vwpbMl4xl9H9TRFPc5NOO8Sb3VSgIBrfRYvW6cUA" alt="GCP">
+                        </span>
+                        <span>GCP ACE</span>
+                        <span class="exam-tab-progress">15%</span>
+                    </button>
+                    <button class="add-exam-tab">
+                        <span>+</span>
+                        <span>Add Exam</span>
+                    </button>
+                </div>
+                
+                <!-- AWS Content (Active) -->
+                <div class="exam-content" id="aws-content">
+                    <div class="exam-header">
+                        <div class="exam-info">
+                            <div class="exam-icon aws">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS">
+                            </div>
+                            <div class="exam-details">
+                                <h2>AWS Solutions Architect Associate</h2>
+                                <p>SAA-C03 • Last studied 2 hours ago</p>
+                            </div>
+                        </div>
+                        <button class="exam-menu-btn">⋮ Options</button>
+                    </div>
+                    
+                    <!-- Ready Banner -->
+                    <div class="ready-banner">
+                        🎉 Ready to take the exam! Your accuracy is above passing score.
+                    </div>
+                    
+                    <!-- Progress -->
+                    <div class="progress-section">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-header">
+                                <span>Study Progress</span>
+                                <span>290 / 342 questions (85%)</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill green" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Exam Stats -->
+                    <div class="exam-stats">
+                        <div class="exam-stat">
+                            <div class="exam-stat-value green">82%</div>
+                            <div class="exam-stat-label">Accuracy</div>
+                        </div>
+                        <div class="exam-stat">
+                            <div class="exam-stat-value">45</div>
+                            <div class="exam-stat-label">Questions Today</div>
+                        </div>
+                        <div class="exam-stat">
+                            <div class="exam-stat-value blue">87%</div>
+                            <div class="exam-stat-label">Pass Prediction</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <a href="study-mode.html" class="btn-action primary">
+                            ▶️ Practice Mode
+                        </a>
+                        <a href="study-mode.html" class="btn-action secondary">
+                            📝 Mock Exam
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Azure Content (Hidden) -->
+                <div class="exam-content" id="azure-content" style="display: none;">
+                    <div class="exam-header">
+                        <div class="exam-info">
+                            <div class="exam-icon azure">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Azure">
+                            </div>
+                            <div class="exam-details">
+                                <h2>Azure Administrator Associate</h2>
+                                <p>AZ-104 • Last studied 3 days ago</p>
+                            </div>
+                        </div>
+                        <button class="exam-menu-btn">⋮ Options</button>
+                    </div>
+                    
+                    <!-- Progress -->
+                    <div class="progress-section">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-header">
+                                <span>Study Progress</span>
+                                <span>98 / 280 questions (35%)</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill yellow" style="width: 35%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Exam Stats -->
+                    <div class="exam-stats">
+                        <div class="exam-stat">
+                            <div class="exam-stat-value" style="color: #eab308;">65%</div>
+                            <div class="exam-stat-label">Accuracy</div>
+                        </div>
+                        <div class="exam-stat">
+                            <div class="exam-stat-value">0</div>
+                            <div class="exam-stat-label">Questions Today</div>
+                        </div>
+                        <div class="exam-stat">
+                            <div class="exam-stat-value blue">62%</div>
+                            <div class="exam-stat-label">Pass Prediction</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <a href="study-mode.html" class="btn-action primary">
+                            ▶️ Practice Mode
+                        </a>
+                        <a href="study-mode.html" class="btn-action secondary">
+                            📝 Mock Exam
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- GCP Content (Hidden) -->
+                <div class="exam-content" id="gcp-content" style="display: none;">
+                    <div class="exam-header">
+                        <div class="exam-info">
+                            <div class="exam-icon gcp">
+                                <img src="https://lh3.googleusercontent.com/COxitqgJr1sJnIDe8-jiKhxDx1FrYbtRHKJ9z_hELisAlapwE9LUPh6fcXIfb5vwpbMl4xl9H9TRFPc5NOO8Sb3VSgIBrfRYvW6cUA" alt="GCP">
+                            </div>
+                            <div class="exam-details">
+                                <h2>GCP Associate Cloud Engineer</h2>
+                                <p>ACE • Last studied 45 days ago</p>
+                            </div>
+                        </div>
+                        <button class="exam-menu-btn">⋮ Options</button>
+                    </div>
+                    
+                    <!-- Progress -->
+                    <div class="progress-section">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-header">
+                                <span>Study Progress</span>
+                                <span>28 / 186 questions (15%)</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill blue" style="width: 15%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Exam Stats -->
+                    <div class="exam-stats">
+                        <div class="exam-stat">
+                            <div class="exam-stat-value" style="color: #ef4444;">54%</div>
+                            <div class="exam-stat-label">Accuracy</div>
+                        </div>
+                        <div class="exam-stat">
+                            <div class="exam-stat-value">0</div>
+                            <div class="exam-stat-label">Questions Today</div>
+                        </div>
+                        <div class="exam-stat">
+                            <div class="exam-stat-value" style="color: #9ca3af;">--</div>
+                            <div class="exam-stat-label">Pass Prediction</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <a href="study-mode.html" class="btn-action primary">
+                            ▶️ Practice Mode
+                        </a>
+                        <a href="study-mode.html" class="btn-action secondary">
+                            📝 Mock Exam
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Total Stats (All Exams Combined) -->
+        <section class="total-stats-section">
+            <div class="total-stats-card">
+                <div class="total-stats-header">
+                    📊 Total Stats (All Exams)
+                </div>
+                <div class="total-stats-grid">
+                    <div class="total-stat">
+                        <div class="total-stat-value">416</div>
+                        <div class="total-stat-label">Questions Solved</div>
+                    </div>
+                    <div class="total-stat">
+                        <div class="total-stat-value" style="color: #22c55e;">78%</div>
+                        <div class="total-stat-label">Overall Accuracy</div>
+                    </div>
+                    <div class="total-stat">
+                        <div class="total-stat-value">12h 30m</div>
+                        <div class="total-stat-label">Total Study Time</div>
+                    </div>
+                    <div class="total-stat">
+                        <div class="total-stat-value">7</div>
+                        <div class="total-stat-label">Mock Exams Taken</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        function switchTab(exam) {
+            // Hide all content
+            document.querySelectorAll('.exam-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Remove active from all tabs
+            document.querySelectorAll('.exam-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected content
+            document.getElementById(exam + '-content').style.display = 'block';
+            
+            // Add active to clicked tab
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
